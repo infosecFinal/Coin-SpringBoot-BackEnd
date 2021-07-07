@@ -1,4 +1,4 @@
-package com.rest.api.controller;
+package com.rest.api.VO;
 
 public class Greeting {
 
