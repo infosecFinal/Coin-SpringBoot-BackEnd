@@ -49,3 +49,19 @@ $(function () {
     $( "#send" ).click(function() { sendName(); });
 });
 
+// 날짜
+function onMessage(e){
+    var chatMsg = event.data;
+    var date = new Date();
+    var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    if(chatMsg.substring(0,6) === 'server'){
+        var $chat = $("<div class='chat notice'>" + chatMsg + "</div>");
+        $('#chat-container').append($chat);
+    }else{
+        var $chat = $("<div class='chat-box'><div class='chat'>" + chatMsg + "</div><div class='chat-info chat-box'>"+ dateInfo +"</div></div>");
+        $('#chat-container').append($chat);
+    }
+
+
+    $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20);
+}

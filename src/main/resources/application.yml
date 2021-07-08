@@ -1,2 +1,10 @@
 server:
-  port: 3333
+  port: 8080
+
+spring:
+  profiles: dev
+  datasource :
+    url: jdbc:oracle:thin:@localhost.com:11521:xe
+    user: mybtc
+    password: mybtc
+    driver-class-name: oracle.jdbc.driver.OracleDriver
