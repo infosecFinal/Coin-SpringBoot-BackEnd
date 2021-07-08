@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
+@RestController
 @RequestMapping("/api")
 public class APIController {
 
@@ -40,16 +41,19 @@ public class APIController {
     @PostMapping("/uidlogin") //sql -> 값 가져와서 성공 실패 보는
     public StatusRes LoginUser(HttpServletRequest request, @RequestBody Login login) {
 
+        StatusRes statusRes = new StatusRes();
         User user = accountService.checkUser(login);
-        HttpSession session = request.getSession();
+        //HttpSession session = request.getSession();
 
         if (user == null) {
 
             statusRes.setStatus(103);
         } else {
+
             statusRes.setStatus(102);
         }
         return statusRes;
     }
+
 
 }

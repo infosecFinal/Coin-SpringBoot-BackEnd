@@ -6,6 +6,8 @@ com/rest/api/controller/APIController.java
  com.rest.api.controller.APIController
 com/rest/api/Applications.java
  com.rest.api.Applications
+com/rest/api/controller/ViewController.java
+ com.rest.api.controller.ViewController
 com/rest/api/controller/GreetingController.java
  com.rest.api.controller.GreetingController
 com/rest/api/config/WebSocketConfig.java

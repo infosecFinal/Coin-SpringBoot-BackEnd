@@ -4,7 +4,7 @@
 <mapper namespace="com.rest.api.DAO.AccountDAO">
 
     <insert id="setUser" parameterType="com.rest.api.VO.User">
-        INSERT INTO mybtc.coin_user (user_id, user_pw, user_name, user_phone, user_address, user_gender, user_email)
+        INSERT INTO coin_user (user_id, user_pw, user_name, user_phone, user_address, user_gender, user_email)
             VALUE (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_address}, #{user_gender}, #{user_email})
     </insert>
 
@@ -17,11 +17,11 @@
     </select>
 
     <delete id="deleteUser" parameterType="com.rest.api.VO.Login">
-        delete from mybtc.coin_user where user_id=#{login_id} and user_pw=#{login_pw}
+        delete from coin_user where user_id=#{login_id} and user_pw=#{login_pw}
     </delete>
 
     <update id="updateUser" parameterType="com.rest.api.VO.User">
-        update mybtc.coin_user set user_pw=#{user_pw}, user_phone=#{user_phone}, user_address=#{user_address} where user_id=#{user_id}
+        update coin_user set user_pw=#{user_pw}, user_phone=#{user_phone}, user_address=#{user_address} where user_id=#{user_id}
     </update>
 
 </mapper>
