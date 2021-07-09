@@ -15,9 +15,9 @@
                            created_at
         )values (
                  board_id_seq.NEXTVAL,
-                 #{title},
-                 #{content},
-                 #{user_id},
+                 '${title}',
+                 '${content}',
+                 '${user_id}',
                  sysdate
         )
         <selectKey keyProperty="id" resultType="int" order="AFTER">
@@ -26,10 +26,10 @@
     </insert>
 
     <update id="updateBoard" parameterType="com.rest.api.VO.BoardVO">
-        update board set content=#{content}, title=#{title} where id=#{id}
+        update board set content='${content}', title='${title}' where id=${id}
     </update>
 
     <update id="deleteBoard" parameterType="int">
-        update board set boardAvailable='F' where id=#{id}
+        update board set boardAvailable='F' where id=${id}
     </update>
 </mapper>
