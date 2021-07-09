@@ -4,6 +4,9 @@ import com.rest.api.Service.AccountService;
 import com.rest.api.VO.Login;
 import com.rest.api.VO.StatusRes;
 import com.rest.api.VO.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+@Api(tags = {"1. User"})
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class APIController {
 
@@ -20,6 +26,7 @@ public class APIController {
     AccountService accountService;
     StatusRes statusRes = new StatusRes();
 
+    @ApiOperation(value="회원 가입", notes="회원을 입력한다.")
     @PostMapping("/uregi")
     public StatusRes regUser(@RequestBody User regUser) {
 
@@ -41,19 +48,16 @@ public class APIController {
     @PostMapping("/uidlogin") //sql -> 값 가져와서 성공 실패 보는
     public StatusRes LoginUser(HttpServletRequest request, @RequestBody Login login) {
 
-        StatusRes statusRes = new StatusRes();
         User user = accountService.checkUser(login);
-        //HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
         if (user == null) {
 
             statusRes.setStatus(103);
         } else {
-
             statusRes.setStatus(102);
         }
         return statusRes;
     }
-
 
 }
