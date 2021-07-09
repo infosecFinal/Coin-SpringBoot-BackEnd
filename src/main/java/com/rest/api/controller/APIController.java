@@ -20,6 +20,24 @@ public class APIController {
     AccountService accountService;
     StatusRes statusRes = new StatusRes();
 
+    @PostMapping("/udup")
+    public StatusRes dupUser(@RequestBody User dupUser) {
+
+        // validation
+        StatusRes statusRes = new StatusRes();
+        String users = AccountService.getUserIDList(dupUser.getUser_id());
+
+        if (users == null) {
+
+            statusRes.setStatus(100);
+        } else {
+
+            statusRes.setStatus(101);
+        }
+
+        return statusRes;
+    }
+
     @PostMapping("/uregi")
     public StatusRes regUser(@RequestBody User regUser) {
 
@@ -37,6 +55,7 @@ public class APIController {
 
         return statusRes;
     }
+
 
     @PostMapping("/uidlogin") //sql -> 값 가져와서 성공 실패 보는
     public StatusRes LoginUser(HttpServletRequest request, @RequestBody Login login) {

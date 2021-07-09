@@ -5,15 +5,15 @@
 
     <insert id="setUser" parameterType="com.rest.api.VO.User">
         INSERT INTO coin_user (user_id, user_pw, user_name, user_phone, user_address, user_gender, user_email)
-            VALUE ('${user_id}', '${user_pw}', '${user_name}', '${user_phone}', '${user_address}', '${user_gender}', '${user_email}')
+            VALUES ('${user_id}', '${user_pw}', '${user_name}', '${user_phone}', '${user_address}', '${user_email}', '${user_gender}')
     </insert>
 
     <select id="getUserIDList" parameterType="String" resultType="String">
-        select user_id from system.coin_user where user_id='${value}'
+        select user_id from coin_user where user_id='${value}'
     </select>
 
     <select id="getUser" parameterType="com.rest.api.VO.Login" resultType="com.rest.api.VO.User">
-        select * from system.coin_user where user_id='${login_id}' and user_pw='${login_pw}'
+        select * from coin_user where user_id='${login_id}' and user_pw='${login_pw}'
     </select>
 
     <delete id="deleteUser" parameterType="com.rest.api.VO.Login">

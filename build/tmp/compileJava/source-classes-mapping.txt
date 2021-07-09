@@ -4,22 +4,22 @@ com/rest/api/model/response/CommonResult.java
  com.rest.api.model.response.CommonResult
 com/rest/api/VO/Greeting.java
  com.rest.api.VO.Greeting
-com/rest/api/controller/APIController.java
- com.rest.api.controller.APIController
 com/rest/api/VO/BoardVO.java
  com.rest.api.VO.BoardVO
+com/rest/api/controller/APIController.java
+ com.rest.api.controller.APIController
 com/rest/api/Applications.java
  com.rest.api.Applications
-com/rest/api/controller/GreetingController.java
- com.rest.api.controller.GreetingController
 com/rest/api/controller/ViewController.java
  com.rest.api.controller.ViewController
+com/rest/api/controller/GreetingController.java
+ com.rest.api.controller.GreetingController
 com/rest/api/config/WebSocketConfig.java
  com.rest.api.config.WebSocketConfig
-com/rest/api/Service/AccountService.java
- com.rest.api.Service.AccountService
 com/rest/api/model/response/ListResult.java
  com.rest.api.model.response.ListResult
+com/rest/api/Service/AccountService.java
+ com.rest.api.Service.AccountService
 com/rest/api/Service/Impl/BoardServiceImpl.java
  com.rest.api.Service.Impl.BoardServiceImpl
 com/rest/api/Service/BoardService.java

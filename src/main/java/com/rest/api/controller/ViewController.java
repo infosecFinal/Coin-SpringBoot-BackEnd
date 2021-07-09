@@ -17,4 +17,8 @@ public class ViewController {
     public String loginpage(Model model, HttpSession session) {
         return "login";
     }
+    @GetMapping("/register")
+    public String registerpage(Model model, HttpSession session) {
+        return "register";
+    }
 }
