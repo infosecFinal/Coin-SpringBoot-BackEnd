@@ -6,8 +6,8 @@ public class User {
     private String user_name;
     private String user_phone;
     private String user_address;
-    private String user_gender;
     private String user_email;
+    private String user_gender;
 
     public String getUser_id() {
         return user_id;
@@ -49,19 +49,19 @@ public class User {
         this.user_address = user_address;
     }
 
-    public String getUser_gender() {
-        return user_gender;
-    }
-
-    public void setUser_gender(String user_gender) {
-        this.user_gender = user_gender;
-    }
-
     public String getUser_email() {
         return user_email;
     }
 
     public void setUser_email(String user_email) {
         this.user_email = user_email;
+    }
+
+    public String getUser_gender() {
+        return user_gender;
+    }
+
+    public void setUser_gender(String user_gender) {
+        this.user_gender = user_gender;
     }
 }

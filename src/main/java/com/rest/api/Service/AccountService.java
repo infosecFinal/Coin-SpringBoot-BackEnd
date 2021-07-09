@@ -7,9 +7,7 @@ public interface AccountService {
 
     void insertUser(User user);
 
-    static String getUserIDList(String id) {
-        return null;
-    }
+    String getUserIDList(String id);
 
     User checkUser(Login login);
 

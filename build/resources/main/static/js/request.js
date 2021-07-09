@@ -47,9 +47,9 @@ function userDuplicateBtn() { //.on 이벤트 트리거
         }).done(function (data) {
 
             //로직 필요에 따라 변경
-            if (data.status === 100) {
+            if (data.status === 200) {
                 alert("사용 가능한 아이디입니다.")
-            } else if (data.status === 101) {
+            } else if (data.status === 201) {
                 alert("이미 존재하는 아이디입니다. 아이디를 변경해주세요.")
             }
         })
@@ -87,11 +87,11 @@ function registerUser() { //.on 이벤트 트리거
 
 // 특수문자 코딩
 function check(str) {
-//
-//     if (str.val() === '' || str.val() == null) {
-//         alert('값을 입력해주세요');
-//         return false;
-//     }
+
+    if (str.val() === '' || str.val() == null) {
+        alert('값을 입력해주세요');
+        return false;
+    }
 //
 //     var blank_pattern = /^\s+|\s+$/g;
 //     if (str.val().replace(blank_pattern, '') === "") {

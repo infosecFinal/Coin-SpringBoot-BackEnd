@@ -24,15 +24,14 @@ public class APIController {
     public StatusRes dupUser(@RequestBody User dupUser) {
 
         // validation
-        StatusRes statusRes = new StatusRes();
-        String users = AccountService.getUserIDList(dupUser.getUser_id());
+        String users = accountService.getUserIDList(dupUser.getUser_id());
 
         if (users == null) {
 
-            statusRes.setStatus(100);
+            statusRes.setStatus(200);
         } else {
 
-            statusRes.setStatus(101);
+            statusRes.setStatus(201);
         }
 
         return statusRes;
@@ -42,7 +41,7 @@ public class APIController {
     public StatusRes regUser(@RequestBody User regUser) {
 
         // validation
-        String users = AccountService.getUserIDList(regUser.getUser_id());
+        String users = accountService.getUserIDList(regUser.getUser_id());
 
         if (users == null) {
 
