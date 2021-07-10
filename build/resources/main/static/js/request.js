@@ -1,3 +1,4 @@
+
 function approveUser() { //.on 이벤트 트리거
 
     var selectVal = $("#login option:selected").val();
