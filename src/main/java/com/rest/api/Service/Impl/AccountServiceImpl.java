@@ -4,41 +4,43 @@ import com.rest.api.DAO.AccountDAO;
 import com.rest.api.Service.AccountService;
 import com.rest.api.VO.Login;
 import com.rest.api.VO.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
-    private AccountDAO dao;
+    private final AccountDAO accountDAO;
 
     @Override
-    public void insertUser(User user) {
+    public int insertUser(User user) {
 
-        dao.setUser(user);
+        return accountDAO.setUser(user);
     }
 
     public String getUserIDList(String id) {
 
-        return dao.getUserIDList(id);
+        return accountDAO.getUserIDList(id);
     }
 
     @Override
     public User checkUser(Login login) {
 
-        return dao.getUser(login);
+        return accountDAO.getUser(login);
     }
 
     @Override
-    public void deleteUser(Login login) {
+    public int deleteUser(Login login) {
 
-        dao.deleteUser(login);
+        return accountDAO.deleteUser(login);
     }
 
     @Override
-    public void updateUser(User user) {
+    public int updateUser(User user) {
 
-        dao.updateUser(user);
+        return accountDAO.updateUser(user);
     }
 }

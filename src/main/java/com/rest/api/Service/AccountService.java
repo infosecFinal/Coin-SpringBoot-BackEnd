@@ -5,13 +5,9 @@ import com.rest.api.VO.User;
 
 public interface AccountService {
 
-    void insertUser(User user);
-
+    int insertUser(User user);
     String getUserIDList(String id);
-
     User checkUser(Login login);
-
-    void deleteUser(Login login);
-
-    void updateUser(User user);
+    int deleteUser(Login login);
+    int updateUser(User user);
 }
