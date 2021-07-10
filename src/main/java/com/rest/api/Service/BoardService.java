@@ -9,5 +9,5 @@ public interface BoardService {
     List<BoardVO> selectBoardList();
     int writeBoard(BoardVO boardVO);
     int updateBoard(BoardVO boardVO);
-
+    int deleteBoard(BoardVO boardVO);
 }

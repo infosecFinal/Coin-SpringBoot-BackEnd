@@ -29,7 +29,7 @@
         update board set content='${content}', title='${title}' where id=${id}
     </update>
 
-    <update id="deleteBoard" parameterType="int">
+    <update id="deleteBoard" parameterType="com.rest.api.VO.BoardVO">
         update board set boardAvailable='F' where id=${id}
     </update>
 </mapper>

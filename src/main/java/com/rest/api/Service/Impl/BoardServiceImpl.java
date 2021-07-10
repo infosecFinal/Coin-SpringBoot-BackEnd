@@ -26,4 +26,6 @@ public class BoardServiceImpl implements BoardService {
     public int updateBoard(BoardVO boardVO) {
         return boardDAO.updateBoard(boardVO);
     }
+    @Override
+    public int deleteBoard(BoardVO boardVO) { return boardDAO.deleteBoard(boardVO); }
 }
