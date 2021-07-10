@@ -3,7 +3,11 @@
 
 <mapper namespace="com.rest.api.DAO.BoardDAO">
     <select id="selectList" resultType="com.rest.api.VO.BoardVO">
-        select * from board where boardAvailable='T'
+        select * from board where boardAvailable='T' order by id desc
+    </select>
+
+    <select id="selectListById" resultType="com.rest.api.VO.BoardVO" parameterType="int">
+        select * from board where boardAvailable='T' and id=${board_id}
     </select>
 
     <insert id="writeBoard" parameterType="com.rest.api.VO.BoardVO">
@@ -16,7 +20,7 @@
         )values (
                  board_id_seq.NEXTVAL,
                  '${title}',
-                 '${content}',
+                 #{content},
                  '${user_id}',
                  sysdate
         )

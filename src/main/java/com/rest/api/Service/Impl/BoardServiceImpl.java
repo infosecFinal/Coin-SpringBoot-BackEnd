@@ -28,4 +28,6 @@ public class BoardServiceImpl implements BoardService {
     }
     @Override
     public int deleteBoard(BoardVO boardVO) { return boardDAO.deleteBoard(boardVO); }
+    @Override
+    public BoardVO selectBoardListById(int id) { return boardDAO.selectListById(id); }
 }

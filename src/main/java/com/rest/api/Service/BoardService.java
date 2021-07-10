@@ -10,4 +10,5 @@ public interface BoardService {
     int writeBoard(BoardVO boardVO);
     int updateBoard(BoardVO boardVO);
     int deleteBoard(BoardVO boardVO);
+    BoardVO selectBoardListById(int id);
 }

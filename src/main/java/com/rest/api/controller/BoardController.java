@@ -49,4 +49,10 @@ public class BoardController {
     public SingleResult<Integer> deleteBoard(@ApiParam(value="게시글 삭제") @RequestBody BoardVO boardVO) {
         return responseService.getSingleResult(boardService.deleteBoard(boardVO));
     }
+
+    @ApiOperation(value="게시글 조회", notes="게시글 번호로 조회한다.")
+    @GetMapping(value="/{board_id}")
+    public SingleResult<BoardVO> selectListById(@ApiParam(value="게시글 번호") @PathVariable int board_id) {
+        return responseService.getSingleResult(boardService.selectBoardListById(board_id));
+    }
 }
