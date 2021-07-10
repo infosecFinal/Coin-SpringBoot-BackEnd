@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rest.api.DAO.BoardDAO">
+    <select id="selectList" resultType="com.rest.api.VO.BoardVO">
+        select * from board where boardAvailable='T'
+    </select>
+
+    <insert id="writeBoard" parameterType="com.rest.api.VO.BoardVO">
+        insert into board (
+                           id,
+                           title,
+                           content,
+                           user_id,
+                           created_at
+        )values (
+                 board_id_seq.NEXTVAL,
+                 '${title}',
+                 '${content}',
+                 '${user_id}',
+                 sysdate
+        )
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            select board_id_seq.CURRVAL FROM DUAL
+        </selectKey>
+    </insert>
+
+    <update id="updateBoard" parameterType="com.rest.api.VO.BoardVO">
+        update board set content='${content}', title='${title}' where id=${id}
+    </update>
+
+    <update id="deleteBoard" parameterType="int">
+        update board set boardAvailable='F' where id=${id}
+    </update>
+</mapper>
