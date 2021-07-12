@@ -11,19 +11,7 @@
     </select>
 
     <insert id="writeBoard" parameterType="com.rest.api.VO.BoardVO">
-        insert into board (
-                           id,
-                           title,
-                           content,
-                           user_id,
-                           created_at
-        )values (
-                 board_id_seq.NEXTVAL,
-                 '${title}',
-                 #{content},
-                 '${user_id}',
-                 sysdate
-        )
+        insert into board (id,title,content,user_id,created_at) values (board_id_seq.NEXTVAL,'${title}','${content}','${user_id}',sysdate)
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             select board_id_seq.CURRVAL FROM DUAL
         </selectKey>
@@ -36,4 +24,16 @@
     <update id="deleteBoard" parameterType="com.rest.api.VO.BoardVO">
         update board set boardAvailable='F' where id=${id}
     </update>
+
+    <select id="selectListByContent" resultType="com.rest.api.VO.BoardVO" parameterType="String">
+        select * from board where content like '%${content}%' order by id desc
+    </select>
+
+    <select id="selectListByTitle" resultType="com.rest.api.VO.BoardVO" parameterType="String">
+        select * from board where title like '%${title}%' order by id desc
+    </select>
+
+    <select id="selectListByUser" resultType="com.rest.api.VO.BoardVO" parameterType="String">
+        select * from board where user_id='${user_id}' order by id desc
+    </select>
 </mapper>

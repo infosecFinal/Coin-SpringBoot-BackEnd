@@ -12,8 +12,12 @@ import java.util.List;
 @Component
 public interface BoardDAO {
     List<BoardVO> selectList();
+    List<BoardVO> selectListByContent(@Param("content") String content);
+    List<BoardVO> selectListByTitle(@Param("title") String title);
+    List<BoardVO> selectListByUser(@Param("user_id") String user_id);
     int writeBoard(BoardVO boardVO);
     int updateBoard(BoardVO boardVO);
     int deleteBoard(BoardVO boardVO);
     BoardVO selectListById(@Param("board_id") int id);
+
 }

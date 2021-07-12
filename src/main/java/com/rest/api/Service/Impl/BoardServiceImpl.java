@@ -18,6 +18,22 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardVO> selectBoardList() {
         return boardDAO.selectList();
     }
+
+    @Override
+    public List<BoardVO> selectListByContent(String content) {
+        return boardDAO.selectListByContent(content);
+    }
+
+    @Override
+    public List<BoardVO> selectListByTitle(String title) {
+        return boardDAO.selectListByTitle(title);
+    }
+
+    @Override
+    public List<BoardVO> selectListByUser(String user_id) {
+        return boardDAO.selectListByUser(user_id);
+    }
+
     @Override
     public int writeBoard(BoardVO boardVO) {
         return boardDAO.writeBoard(boardVO);
@@ -30,4 +46,5 @@ public class BoardServiceImpl implements BoardService {
     public int deleteBoard(BoardVO boardVO) { return boardDAO.deleteBoard(boardVO); }
     @Override
     public BoardVO selectBoardListById(int id) { return boardDAO.selectListById(id); }
+
 }

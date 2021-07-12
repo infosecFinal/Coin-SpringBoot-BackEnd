@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Api(tags = {"2. Board"})
@@ -54,5 +55,16 @@ public class BoardController {
     @GetMapping(value="/list/{board_id}")
     public SingleResult<BoardVO> selectListById(@ApiParam(value="게시글 번호") @PathVariable int board_id) {
         return responseService.getSingleResult(boardService.selectBoardListById(board_id));
+    }
+
+    @ApiOperation(value="게시글 검색", notes="게시글을 타입별로 검색한다.")
+    @GetMapping(value="/find")
+    public ListResult<BoardVO> findList(HttpServletRequest req) {
+        String category = req.getParameter("category");
+        String content = req.getParameter("content");
+        if(category.equals("title")) return responseService.getListResult(boardService.selectListByTitle(content));
+        else if(category.equals("content")) return responseService.getListResult(boardService.selectListByContent(content));
+        else return responseService.getListResult(boardService.selectListByUser(content));
+
     }
 }
