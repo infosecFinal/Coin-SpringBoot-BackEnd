@@ -51,7 +51,7 @@ public class BoardController {
     }
 
     @ApiOperation(value="게시글 조회", notes="게시글 번호로 조회한다.")
-    @GetMapping(value="/{board_id}")
+    @GetMapping(value="/list/{board_id}")
     public SingleResult<BoardVO> selectListById(@ApiParam(value="게시글 번호") @PathVariable int board_id) {
         return responseService.getSingleResult(boardService.selectBoardListById(board_id));
     }

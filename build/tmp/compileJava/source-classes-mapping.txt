@@ -24,16 +24,16 @@ com/rest/api/Service/Impl/AccountServiceImpl.java
  com.rest.api.Service.Impl.AccountServiceImpl
 com/rest/api/VO/User.java
  com.rest.api.VO.User
-com/rest/api/VO/Login.java
- com.rest.api.VO.Login
 com/rest/api/model/response/CommonResult.java
  com.rest.api.model.response.CommonResult
+com/rest/api/VO/Login.java
+ com.rest.api.VO.Login
 com/rest/api/VO/Greeting.java
  com.rest.api.VO.Greeting
-com/rest/api/controller/ViewController.java
- com.rest.api.controller.ViewController
 com/rest/api/controller/GreetingController.java
  com.rest.api.controller.GreetingController
+com/rest/api/controller/ViewController.java
+ com.rest.api.controller.ViewController
 com/rest/api/config/WebSocketConfig.java
  com.rest.api.config.WebSocketConfig
 com/rest/api/Service/AccountService.java
