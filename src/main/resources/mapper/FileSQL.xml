@@ -3,7 +3,7 @@
 
 <mapper namespace="com.rest.api.DAO.FileDAO">
     <sql id="FileColumns">
-        id,board_id,file_name,origin_file_name,file_path,fileAvailable
+        id,board_id,file_name,origin_file_name,file_path,fileAvailable,content_type
     </sql>
 
     <insert id="insertFile">
@@ -11,10 +11,11 @@
         <foreach collection="list" item="item" separator=",">(
             file_id_seq.NEXTVAL,
             ${board_idx},
-            '${item.filename}',
-            '${item.origin_fileName}',
-            '${item.filePath}',
-            'T'
+            '${item.file_Name}',
+            '${item.origin_file_Name}',
+            '${item.file_Path}',
+            'T',
+            '${item.content_type}'
         )
         </foreach>
         <selectKey keyProperty="id" resultType="int" order="AFTER">
@@ -22,12 +23,17 @@
         </selectKey>
     </insert>
 
-    <select id="selectFile" parameterType="int" resultType="com.rest.api.VO.FileVO">
-        select * from file_db where fileAvailable='T' and board_idx=${board_id}
+    <select id="selectFile" resultType="com.rest.api.VO.FileVO">
+        select * from file_db where fileAvailable='T' and board_id=${board_id}
+    </select>
+
+    <select id="selectFileById" resultType="com.rest.api.VO.FileVO">
+        select * from file_db where fileAvailable='T' and id=${id}
     </select>
 
     <update id="deleteFile" parameterType="int">
         update file_db set fileAvailable='F' where board_idx=${board_id}
     </update>
+
 
 </mapper>

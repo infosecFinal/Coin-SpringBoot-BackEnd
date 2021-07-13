@@ -11,9 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FileVO {
     private int board_id;
-    private int file_id;
-    private String fileName;
-    private String contentType;
-    private String filePath;
-    private String origin_fileName;
+    private int id;
+    private char fileavailable;
+    private String file_Name;
+    private String file_Path;
+    private String origin_file_Name;
+    private String content_type;
 }

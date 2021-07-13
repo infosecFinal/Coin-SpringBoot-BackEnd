@@ -18,13 +18,18 @@ import java.util.List;
 @Service
 public class FileServiceImpl implements FileService {
 
-    private final BoardDAO boardDAO;
     private final FileDAO fileDAO;
     private final FileUtil fileUtil;
     @Override
     public List<FileVO> selectFileList(int board_idx) {
         List<FileVO> lst = new ArrayList<>();
+        lst = fileDAO.selectFile(board_idx);
         return lst;
+    }
+
+    @Override
+    public FileVO selectFileById(int id) {
+        return fileDAO.selectFileById(id);
     }
 
     @Override
@@ -32,7 +37,7 @@ public class FileServiceImpl implements FileService {
         int queryResult = 1;
 
         List<FileVO> fileList = fileUtil.uploadFiles(files, board_idx);
-
+        System.out.println("after fileList");
         if (!CollectionUtils.isEmpty(fileList)) {
             queryResult = fileDAO.insertFile(fileList, board_idx);
             if(queryResult < 1) {

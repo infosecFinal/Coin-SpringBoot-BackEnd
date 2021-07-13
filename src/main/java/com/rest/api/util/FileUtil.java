@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Component
 public class FileUtil {
-    private final String uploadPath = Paths.get("C:", "Temp").toString();
+    private final String uploadPath = Paths.get("C:", "Temp", "Upload").toString();
     private final String getRandomString() {
         return UUID.randomUUID().toString().replaceAll("-","");
     }
@@ -37,11 +37,11 @@ public class FileUtil {
                 file.transferTo(target);
                 System.out.println(target.toString());
                 FileVO fileVO = new FileVO();
-                fileVO.setOrigin_fileName(file.getOriginalFilename());
-                fileVO.setFileName(saveName);
-                fileVO.setFilePath(uploadPath);
+                fileVO.setOrigin_file_Name(file.getOriginalFilename());
+                fileVO.setFile_Name(saveName);
+                fileVO.setFile_Path(uploadPath);
                 fileVO.setBoard_id(board_idx);
-
+                fileVO.setContent_type(file.getContentType());
                 fliest.add(fileVO);
             } catch (IOException e) {
                 throw new AttachFileException("["+file.getOriginalFilename()+"] failed to save file...");
