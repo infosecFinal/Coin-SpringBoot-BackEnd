@@ -15,6 +15,7 @@ public class ResponseService {
         SUCCESS(1, "success"),
         FAIL(-1, "fail");
 
+
         int code;
         String msg;
 
