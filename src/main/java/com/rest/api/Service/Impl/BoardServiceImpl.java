@@ -1,11 +1,18 @@
 package com.rest.api.Service.Impl;
 
 import com.rest.api.DAO.BoardDAO;
+import com.rest.api.DAO.FileDAO;
 import com.rest.api.Service.BoardService;
 import com.rest.api.VO.BoardVO;
+import com.rest.api.VO.FileVO;
+import com.rest.api.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -13,6 +20,8 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardDAO boardDAO;
+    private final FileDAO fileDAO;
+    private final FileUtil fileUtil;
 
     @Override
     public List<BoardVO> selectBoardList() {
@@ -35,9 +44,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int writeBoard(BoardVO boardVO) {
-        return boardDAO.writeBoard(boardVO);
-    }
+    public int writeBoard(BoardVO boardVO) { return boardDAO.writeBoard(boardVO);}
+
+
     @Override
     public int updateBoard(BoardVO boardVO) {
         return boardDAO.updateBoard(boardVO);

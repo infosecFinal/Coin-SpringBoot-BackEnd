@@ -6,7 +6,12 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@localhost:11521/xe
     username: system
-    password: mybtc
+    password: oracle
+  servlet:
+    multipart:
+      location: C:\\Temp\\Upload
+      max-file-size: 10MB
+      max-request-size: 50MB
 
 mybatis:
   type-aliases-package: com.rest.api.VO

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rest.api.DAO.FileDAO">
+    <sql id="FileColumns">
+        id,board_id,file_name,origin_file_name,file_path,fileAvailable
+    </sql>
+
+    <insert id="insertFile">
+        insert into file_db(<include refid="FileColumns" />) values
+        <foreach collection="list" item="item" separator=",">(
+            file_id_seq.NEXTVAL,
+            ${board_idx},
+            '${item.filename}',
+            '${item.origin_fileName}',
+            '${item.filePath}',
+            'T'
+        )
+        </foreach>
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            select file_id_seq.CURRVAL FROM DUAL
+        </selectKey>
+    </insert>
+
+    <select id="selectFile" parameterType="int" resultType="com.rest.api.VO.FileVO">
+        select * from file_db where fileAvailable='T' and board_idx=${board_id}
+    </select>
+
+    <update id="deleteFile" parameterType="int">
+        update file_db set fileAvailable='F' where board_idx=${board_id}
+    </update>
+
+</mapper>

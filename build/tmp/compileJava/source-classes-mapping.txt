@@ -12,14 +12,24 @@ com/rest/api/VO/StatusRes.java
  com.rest.api.VO.StatusRes
 com/rest/api/config/DataAccessConfig.java
  com.rest.api.config.DataAccessConfig
+com/rest/api/Service/FileService.java
+ com.rest.api.Service.FileService
 com/rest/api/controller/BoardController.java
  com.rest.api.controller.BoardController
+com/rest/api/controller/FileController.java
+ com.rest.api.controller.FileController
+com/rest/api/exception/AttachFileException.java
+ com.rest.api.exception.AttachFileException
 com/rest/api/DAO/AccountDAO.java
  com.rest.api.DAO.AccountDAO
+com/rest/api/util/FileUtil.java
+ com.rest.api.util.FileUtil
 com/rest/api/config/SwaggerConfig.java
  com.rest.api.config.SwaggerConfig
 com/rest/api/VO/HelloMessage.java
  com.rest.api.VO.HelloMessage
+com/rest/api/DAO/FileDAO.java
+ com.rest.api.DAO.FileDAO
 com/rest/api/Service/Impl/AccountServiceImpl.java
  com.rest.api.Service.Impl.AccountServiceImpl
 com/rest/api/VO/User.java
@@ -42,6 +52,8 @@ com/rest/api/Service/Impl/BoardServiceImpl.java
  com.rest.api.Service.Impl.BoardServiceImpl
 com/rest/api/Service/BoardService.java
  com.rest.api.Service.BoardService
+com/rest/api/Service/Impl/FileServiceImpl.java
+ com.rest.api.Service.Impl.FileServiceImpl
 com/rest/api/Service/ResponseService.java
  com.rest.api.Service.ResponseService
  com.rest.api.Service.ResponseService$CommonResponse
@@ -49,3 +61,5 @@ com/rest/api/DAO/BoardDAO.java
  com.rest.api.DAO.BoardDAO
 com/rest/api/model/response/SingleResult.java
  com.rest.api.model.response.SingleResult
+com/rest/api/VO/FileVO.java
+ com.rest.api.VO.FileVO

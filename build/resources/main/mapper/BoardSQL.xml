@@ -26,14 +26,14 @@
     </update>
 
     <select id="selectListByContent" resultType="com.rest.api.VO.BoardVO" parameterType="String">
-        select * from board where content like '%${content}%' order by id desc
+        select * from board where content like '%${content}%' and boardAvailable='T' order by id desc
     </select>
 
     <select id="selectListByTitle" resultType="com.rest.api.VO.BoardVO" parameterType="String">
-        select * from board where title like '%${title}%' order by id desc
+        select * from board where title like '%${title}%' and boardAvailable='T' order by id desc
     </select>
 
     <select id="selectListByUser" resultType="com.rest.api.VO.BoardVO" parameterType="String">
-        select * from board where user_id='${user_id}' order by id desc
+        select * from board where user_id='${user_id}' and boardAvailable='T' order by id desc
     </select>
 </mapper>
