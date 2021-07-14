@@ -21,7 +21,7 @@
     </delete>
 
     <select id="getUserInfo" parameterType="String" resultType="com.rest.api.VO.User">
-        select user_name, user_address, user_email, user_gender from coin_user where user_id='${login_id}'
+        select user_name, user_address, user_email, user_gender, user_phone from coin_user where user_id='${login_id}'
     </select>
 
     <update id="updateUser" parameterType="com.rest.api.VO.User">
