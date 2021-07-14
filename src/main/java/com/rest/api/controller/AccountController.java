@@ -45,8 +45,8 @@ public class AccountController {
     }
 
     @ApiOperation(value="계정 정보출력", notes="회원의 계정 정보를 출력한다")
-    @GetMapping(value="/print")
-    public SingleResult<Login> getUserInfo(@ApiParam(value="계정 정보출력") @PathVariable String login_id)  {
+    @GetMapping(value="/print/{login_id}")
+    public SingleResult<User> getUserInfo(@ApiParam(value="계정 정보출력") @PathVariable String login_id)  {
         return responseService.getSingleResult(accountService.getUserInfo(login_id));
     }
 

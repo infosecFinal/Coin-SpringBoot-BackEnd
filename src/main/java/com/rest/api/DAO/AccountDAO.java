@@ -3,6 +3,7 @@ package com.rest.api.DAO;
 import com.rest.api.VO.Login;
 import com.rest.api.VO.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,5 +15,5 @@ public interface AccountDAO {
     User getUser(Login login);
     int deleteUser(Login login);
     int updateUser(User user);
-    Login getUserInfo(String id);
+    User getUserInfo(@Param("login_id")String id);
 }
