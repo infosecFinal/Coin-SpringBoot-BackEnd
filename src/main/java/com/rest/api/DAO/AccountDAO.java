@@ -14,4 +14,5 @@ public interface AccountDAO {
     User getUser(Login login);
     int deleteUser(Login login);
     int updateUser(User user);
+    Login getUserInfo(String id);
 }

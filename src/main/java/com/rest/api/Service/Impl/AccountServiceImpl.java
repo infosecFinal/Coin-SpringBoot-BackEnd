@@ -43,4 +43,10 @@ public class AccountServiceImpl implements AccountService {
 
         return accountDAO.updateUser(user);
     }
+
+    @Override
+    public Login getUserInfo(String id) {
+
+        return accountDAO.getUserInfo(id);
+    }
 }

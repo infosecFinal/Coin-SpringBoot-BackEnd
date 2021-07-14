@@ -44,12 +44,15 @@ public class AccountController {
         return responseService.getSingleResult(accountService.deleteUser(login));
     }
 
+    @ApiOperation(value="계정 정보출력", notes="회원의 계정 정보를 출력한다")
+    @GetMapping(value="/print")
+    public SingleResult<Login> getUserInfo(@ApiParam(value="계정 정보출력") @PathVariable String login_id)  {
+        return responseService.getSingleResult(accountService.getUserInfo(login_id));
+    }
+
     @ApiOperation(value="계정 정보수정", notes="회원의 계정 정보를 수정한다")
     @PostMapping(value="/update")
     public SingleResult<Integer> updateUser(@ApiParam(value="계정 정보수정") @RequestBody User user)  {
         return responseService.getSingleResult(accountService.updateUser(user));
     }
-
-
-
 }

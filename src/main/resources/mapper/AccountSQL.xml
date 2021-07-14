@@ -20,6 +20,10 @@
         delete from coin_user where user_id='${login_id}' and user_pw='${login_pw}'
     </delete>
 
+    <select id="getUserInfo" parameterType="String" resultType="com.rest.api.VO.User">
+        select user_name, user_address, user_email, user_gender from coin_user where user_id='${login_id}'
+    </select>
+
     <update id="updateUser" parameterType="com.rest.api.VO.User">
         update coin_user set user_pw='${user_pw}', user_phone='${user_phone}', user_address='${user_address}' where user_id='${user_id}'
     </update>
