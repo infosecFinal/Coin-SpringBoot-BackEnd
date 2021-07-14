@@ -13,7 +13,7 @@ public class GreetingController {
 	@MessageMapping("/hello")
 	@SendTo("/topic/greetings")
 	public Greeting greeting(HelloMessage message){
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
+		return new Greeting(HtmlUtils.htmlEscape(message.getName())+": " + HtmlUtils.htmlEscape(message.getMsg()));
 	}
 
 }

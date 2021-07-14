@@ -65,7 +65,7 @@ public class FileController {
 
         try {
             byte[] data = FileUtils.readFileToByteArray(file);
-            resp.setContentType(fileVO.getContent_type());
+            resp.setContentType("application/octet-stream");
             resp.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
             System.out.println(resp);
             resp.getOutputStream().write(data);
