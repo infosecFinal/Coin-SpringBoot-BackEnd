@@ -21,6 +21,7 @@ public class FileUtil {
         return UUID.randomUUID().toString().replaceAll("-","");
     }
     public List<FileVO> uploadFiles(MultipartFile[] files, int board_idx) throws IllegalStateException, IOException {
+        System.out.println(files.length);
         if(files[0].getSize() < 1) return Collections.emptyList();
 
         List<FileVO> fliest = new ArrayList<>();

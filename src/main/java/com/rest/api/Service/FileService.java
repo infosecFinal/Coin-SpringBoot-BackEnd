@@ -10,5 +10,5 @@ public interface FileService {
     List<FileVO> selectFileList(int board_idx);
     FileVO selectFileById(int id);
     int uploadFile(MultipartFile[] files, int board_idx) throws IOException;
-    int deleteFile(int board_idx);
+    int deleteFile(int file_id);
 }

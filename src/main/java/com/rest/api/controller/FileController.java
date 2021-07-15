@@ -39,12 +39,19 @@ public class FileController {
     @ApiOperation(value="파일 업로드", notes="파일을 업로드한다")
     @PostMapping(value="/upload")
     public SingleResult<Integer> uploadFile(@ApiParam(value="파일 업로드") @RequestBody MultipartFile[] files, HttpServletRequest req) throws IOException {
+        System.out.println(files.length);
         String board_id = req.getParameter("board_id");
         int idx = 0;
         if(board_id.equals("new")) idx = boardService.selectBoardList().get(0).getId();
         else idx = Integer.parseInt(board_id);
         System.out.println(board_id);
         return responseService.getSingleResult(fileService.uploadFile(files, idx));
+    }
+
+    @ApiOperation(value="파일 삭제", notes="파일 접근을 불가능하도록 한다")
+    @PostMapping(value="/delete")
+    public SingleResult<Integer> deleteFile(@ApiParam(value="파일 삭제") @RequestBody FileVO fileVO) {
+        return responseService.getSingleResult(fileService.deleteFile(fileVO.getId()));
     }
 
     @ApiOperation(value="파일 검색", notes="게시글 번호로 파일을 검색한다")

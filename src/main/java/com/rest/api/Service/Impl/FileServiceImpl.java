@@ -49,7 +49,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public int deleteFile(int board_idx) {
-        return 0;
+    public int deleteFile(int file_id) {
+        return fileDAO.deleteFile(file_id);
     }
 }

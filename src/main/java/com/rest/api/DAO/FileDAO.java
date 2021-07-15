@@ -13,5 +13,5 @@ public interface FileDAO {
     int insertFile(@Param("list") List<FileVO> fileVO,@Param("board_idx") int board_idx);
     List<FileVO> selectFile(@Param("board_id") int board_idx);
     FileVO selectFileById(@Param("id") int id);
-    int deleteFile(@Param("board_idx") int board_idx);
+    int deleteFile(@Param("file_id") int file_id);
 }
