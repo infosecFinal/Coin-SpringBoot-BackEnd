@@ -51,7 +51,7 @@ public class AccountController {
     }
 
     @ApiOperation(value="계정 정보수정", notes="회원의 계정 정보를 수정한다")
-    @PostMapping(value="/update")
+    @PostMapping(value="/mypage/update")
     public SingleResult<Integer> updateUser(@ApiParam(value="계정 정보수정") @RequestBody User user)  {
         return responseService.getSingleResult(accountService.updateUser(user));
     }
