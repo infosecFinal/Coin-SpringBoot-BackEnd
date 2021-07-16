@@ -96,7 +96,6 @@ public class AccountController {
         if(sess == null) {
             return responseService.getSingleResult(new User());
         }
-        System.out.println("Qwer");
         return responseService.getSingleResult(accountService.getUserInfo(sess.getUser_id()));
     }
 
