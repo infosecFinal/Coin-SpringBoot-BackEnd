@@ -25,6 +25,7 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Api(tags={"3. File Control"})
 @RequiredArgsConstructor
@@ -39,25 +40,32 @@ public class FileController {
     @ApiOperation(value="파일 업로드", notes="파일을 업로드한다")
     @PostMapping(value="/upload")
     public SingleResult<Integer> uploadFile(@ApiParam(value="파일 업로드") @RequestBody MultipartFile[] files, HttpServletRequest req) throws IOException {
-        System.out.println(files.length);
+        System.out.println("file length: "+files.length);
         String board_id = req.getParameter("board_id");
+        System.out.println("board_id: "+ board_id);
         int idx = 0;
         if(board_id.equals("new")) idx = boardService.selectBoardList().get(0).getId();
         else idx = Integer.parseInt(board_id);
         System.out.println(board_id);
-        return responseService.getSingleResult(fileService.uploadFile(files, idx));
+        int res = fileService.uploadFile(files, idx);
+        if (res < 1) throw new RuntimeException();
+        return responseService.getSingleResult(res);
     }
 
     @ApiOperation(value="파일 삭제", notes="파일 접근을 불가능하도록 한다")
     @PostMapping(value="/delete")
     public SingleResult<Integer> deleteFile(@ApiParam(value="파일 삭제") @RequestBody FileVO fileVO) {
-        return responseService.getSingleResult(fileService.deleteFile(fileVO.getId()));
+        int res = fileService.deleteFile(fileVO.getId());
+        if(res < 1) throw new RuntimeException();
+        return responseService.getSingleResult(res);
     }
 
     @ApiOperation(value="파일 검색", notes="게시글 번호로 파일을 검색한다")
     @GetMapping(value="/list/{board_id}")
     public ListResult<FileVO> findFileByBoard_id(@ApiParam("게시글 번호") @PathVariable int board_id) {
-        return responseService.getListResult(fileService.selectFileList(board_id));
+        List<FileVO> files = fileService.selectFileList(board_id);
+        if(files == null) throw new RuntimeException();
+        return responseService.getListResult(files);
     }
 
     @ApiOperation(value="파일 다운로드", notes="파일 번호로 다운로드")

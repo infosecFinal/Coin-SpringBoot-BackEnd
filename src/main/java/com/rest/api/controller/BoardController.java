@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(tags = {"2. Board"})
@@ -31,32 +32,39 @@ public class BoardController {
     @GetMapping(value="/lists")
     public ListResult<BoardVO> selectList() {
         List<BoardVO> result = boardService.selectBoardList();
-        System.out.println(result.get(0));
         return responseService.getListResult(result);
     }
 
     @ApiOperation(value="게시글 작성", notes="게시글을 작성한다")
     @PostMapping(value="/insert")
     public SingleResult<Integer> writeBoard(@ApiParam(value = "게시글 작성") @RequestBody BoardVO boardVO) {
-        return responseService.getSingleResult(boardService.writeBoard(boardVO));
+        int res = boardService.writeBoard(boardVO);
+        if(res < 1) throw new RuntimeException();
+        return responseService.getSingleResult(res);
     }
 
     @ApiOperation(value="게시글 수정", notes="게시글을 수정한다")
     @PostMapping(value="/update")
     public SingleResult<Integer> updateBoard(@ApiParam(value="게시글 수정") @RequestBody BoardVO boardVO) {
-        return responseService.getSingleResult(boardService.updateBoard(boardVO));
+        int res = boardService.updateBoard(boardVO);
+        if(res < 1) throw new RuntimeException();
+        return responseService.getSingleResult(res);
     }
 
     @ApiOperation(value="게시글 삭제", notes="게시글을 비활성화 한다")
     @PostMapping(value="/delete")
     public SingleResult<Integer> deleteBoard(@ApiParam(value="게시글 삭제") @RequestBody BoardVO boardVO) {
-        return responseService.getSingleResult(boardService.deleteBoard(boardVO));
+        int res = boardService.deleteBoard(boardVO);
+        if(res < 1) throw new RuntimeException();
+        return responseService.getSingleResult(res);
     }
 
     @ApiOperation(value="게시글 조회", notes="게시글 번호로 조회한다.")
     @GetMapping(value="/list/{board_id}")
     public SingleResult<BoardVO> selectListById(@ApiParam(value="게시글 번호") @PathVariable int board_id) {
-        return responseService.getSingleResult(boardService.selectBoardListById(board_id));
+        BoardVO board = boardService.selectBoardListById(board_id);
+        if(board == null) throw new RuntimeException();
+        return responseService.getSingleResult(board);
     }
 
     @ApiOperation(value="게시글 검색", notes="게시글을 타입별로 검색한다.")
@@ -64,9 +72,22 @@ public class BoardController {
     public ListResult<BoardVO> findList(HttpServletRequest req) {
         String category = req.getParameter("category");
         String content = req.getParameter("content");
-        if(category.equals("title")) return responseService.getListResult(boardService.selectListByTitle(content));
-        else if(category.equals("content")) return responseService.getListResult(boardService.selectListByContent(content));
-        else return responseService.getListResult(boardService.selectListByUser(content));
+        List<BoardVO> board = new ArrayList<>();
+        if(category.equals("title")) {
+            board = boardService.selectListByTitle(content);
+            if(board == null) throw new RuntimeException();
+            return responseService.getListResult(board);
+        }
+        else if(category.equals("content")){
+            board = boardService.selectListByContent(content);
+            if(board == null) throw new RuntimeException();
+            return responseService.getListResult(board);
+        }
+        else{
+            board = boardService.selectListByUser(content);
+            if(board == null) throw new RuntimeException();
+            return responseService.getListResult(board);
+        }
 
     }
 }

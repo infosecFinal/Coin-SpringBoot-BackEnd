@@ -8,6 +8,7 @@ import com.rest.api.VO.Login;
 import com.rest.api.VO.SessionVO;
 import com.rest.api.VO.User;
 import com.rest.api.exception.StorageException;
+import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.SingleResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
+import java.util.Optional;
 
 @Api(tags = {"1. Account"})
 @RequiredArgsConstructor
@@ -49,21 +51,27 @@ public class AccountController {
     @ApiOperation(value="계정 생성", notes="회원 가입을 한다")
     @PostMapping(value="/register")
     public SingleResult<Integer> insertUser(@ApiParam(value="계정 생성") @RequestBody User user)  {
-        return responseService.getSingleResult(accountService.insertUser(user));
+        int res = accountService.insertUser(user);
+        if(res < 1) throw new RuntimeException();
+        return responseService.getSingleResult(res);
     }
 
     @ApiOperation(value="계정 중복확인", notes="아이디 중복여부를 확인한다.")
     @PostMapping(value="/validation")
     public SingleResult<String> getUserIDList(@ApiParam(value="계정 중복확인") @RequestBody User dupuser)  {
-        return responseService.getSingleResult(accountService.getUserIDList(dupuser.getUser_id()));
+        String id = accountService.getUserIDList(dupuser.getUser_id());
+        System.out.println(id);
+        if(id == null) throw new RuntimeException();
+        return responseService.getSingleResult(id);
     }
 
     @ApiOperation(value="계정 로그인", notes="인증 토큰 발급")
     @PostMapping(value="/login")
     public SingleResult<String> checkUser(@ApiParam(value="계정 로그인") @RequestBody Login login, HttpServletResponse response, @CookieValue(value="access_token", required=false) Cookie access_token)  {
+
         User user = accountService.checkUser(login);
         if(user == null) {
-            return responseService.getSingleResult("fail");
+            throw new RuntimeException();
         }
         String token = "";
 
@@ -77,43 +85,46 @@ public class AccountController {
     @ApiOperation(value="계정 삭제", notes="회원의 계정을 삭제한다")
     @PostMapping(value="/delete")
     public SingleResult<Integer> deleteUser(@ApiParam(value="계정 삭제") @RequestBody Login login, @CookieValue(value="access_token", required=false) Cookie access_token)  {
-        User user = accountService.checkUser(login);
-        SessionVO sess = sessionService.getSession(access_token.getValue());
-        if(user==null || sess == null || !user.getUser_id().equals(sess.getUser_id())) {
-            return responseService.getSingleResult(0);
-        }
-        return responseService.getSingleResult(accountService.deleteUser(login));
+            User user = accountService.checkUser(login);
+            SessionVO sess = sessionService.getSession(access_token.getValue());
+            if (user == null || sess == null || !user.getUser_id().equals(sess.getUser_id())) {
+                throw new RuntimeException();
+            }
+            int res = accountService.deleteUser(login);
+            System.out.println(res);
+            if (res < 1) throw new RuntimeException();
+        return responseService.getSingleResult(res);
     }
 
     @ApiOperation(value="계정 정보출력", notes="회원의 계정 정보를 출력한다")
     @GetMapping(value="/print")
-    public SingleResult<User> getUserInfo(@CookieValue(value="access_token", required=false) Cookie access_token)  {
-        System.out.println("abcd");
-        if(access_token == null) return responseService.getSingleResult(new User());
+    public SingleResult<User> getUserInfo(@CookieValue(value="access_token", required=false) Cookie access_token) throws Exception {
+        if(access_token == null) throw new RuntimeException();
         String cookie = access_token.getValue();
         System.out.println(cookie);
         SessionVO sess = sessionService.getSession(cookie);
         if(sess == null) {
-            return responseService.getSingleResult(new User());
+            throw new RuntimeException();
         }
         return responseService.getSingleResult(accountService.getUserInfo(sess.getUser_id()));
     }
 
     @ApiOperation(value="유효성 검증", notes="토큰의 유효성 검증")
     @GetMapping(value="/valid")
-    public SingleResult<String> validation(@CookieValue(value="access_token", required=true) Cookie access_token) {
+    public CommonResult validation(@CookieValue(value="access_token", required=true) Cookie access_token) {
         String cookie = access_token.getValue();
         SessionVO sess = sessionService.getSession(cookie);
-        String res = "";
-        if(sess != null) res = "valid";
-        else res = "not valid";
-        return responseService.getSingleResult(res);
+        if(sess != null) return responseService.getSuccessResult();
+        else throw new RuntimeException();
+
     }
 
     @ApiOperation(value="계정 정보수정", notes="회원의 계정 정보를 수정한다")
     @PostMapping(value="/mypage/update")
     public SingleResult<Integer> updateUser(@ApiParam(value="계정 정보수정") @RequestBody User user){
-        return responseService.getSingleResult(accountService.updateUser(user));
+        int res = accountService.updateUser(user);
+        if (res < 1) throw new RuntimeException();
+        return responseService.getSingleResult(res);
     }
 
     @ApiOperation(value="계정 이미지 수정", notes="회원의 계정 이미지를 수정한다")
