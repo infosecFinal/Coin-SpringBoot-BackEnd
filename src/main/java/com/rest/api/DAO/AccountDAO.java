@@ -5,6 +5,7 @@ import com.rest.api.VO.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 @Mapper
@@ -16,4 +17,5 @@ public interface AccountDAO {
     int deleteUser(Login login);
     int updateUser(User user);
     User getUserInfo(@Param("login_id")String id);
+    int uploadImage(MultipartFile file);
 }

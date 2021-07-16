@@ -2,14 +2,18 @@ package com.rest.api.controller;
 
 import com.rest.api.Service.AccountService;
 import com.rest.api.Service.ResponseService;
+import com.rest.api.Service.Impl.StorageServiceImpl;
 import com.rest.api.VO.Login;
 import com.rest.api.VO.User;
+import com.rest.api.exception.StorageException;
 import com.rest.api.model.response.SingleResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Api(tags = {"1. Account"})
 @RequiredArgsConstructor
@@ -19,6 +23,8 @@ public class AccountController {
 
     private final AccountService accountService;
     private final ResponseService responseService;
+    @Autowired
+    private final StorageServiceImpl storageServiceImpl;
 
     @ApiOperation(value="계정 생성", notes="회원 가입을 한다")
     @PostMapping(value="/register")
@@ -52,7 +58,16 @@ public class AccountController {
 
     @ApiOperation(value="계정 정보수정", notes="회원의 계정 정보를 수정한다")
     @PostMapping(value="/mypage/update")
-    public SingleResult<Integer> updateUser(@ApiParam(value="계정 정보수정") @RequestBody User user)  {
+    public SingleResult<Integer> updateUser(@ApiParam(value="계정 정보수정") @RequestBody User user){
         return responseService.getSingleResult(accountService.updateUser(user));
     }
+
+    @ApiOperation(value="계정 이미지 수정", notes="회원의 계정 이미지를 수정한다")
+    @RequestMapping(value = "/mypage/update/upload", method = RequestMethod.POST,
+            consumes = {"multipart/form-data"})
+    public SingleResult<String> uploadImage(@ApiParam(value="계정 이미지 수정") @RequestBody MultipartFile file) throws StorageException {
+        storageServiceImpl.uploadImage(file);
+        return responseService.getSingleResult(storageServiceImpl.uploadImage(file));
+    }
+
 }
