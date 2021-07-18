@@ -4,8 +4,8 @@
 <mapper namespace="com.rest.api.DAO.AccountDAO">
 
     <insert id="setUser" parameterType="com.rest.api.VO.User">
-        INSERT INTO coin_user (user_id, user_pw, user_name, user_phone, user_address, user_email, user_gender)
-            VALUES ('${user_id}', '${user_pw}', '${user_name}', '${user_phone}', '${user_address}', '${user_email}', '${user_gender}')
+        INSERT INTO coin_user (user_id, user_pw, user_name, user_phone, user_address, user_email, user_gender, user_image)
+            VALUES ('${user_id}', '${user_pw}', '${user_name}', '${user_phone}', '${user_address}', '${user_email}', '${user_gender}', '${user_image')
     </insert>
 
     <select id="getUserIDList" parameterType="String" resultType="String">
@@ -25,11 +25,12 @@
     </select>
 
     <update id="updateUser" parameterType="com.rest.api.VO.User">
-        update coin_user set user_pw='${user_pw}', user_phone='${user_phone}', user_address='${user_address}' where user_id='${user_id}'
+        update coin_user set user_pw='${user_pw}', user_phone='${user_phone}', user_address='${user_address}'where user_id='${user_id}'
     </update>
-
     <update id="uploadImage" parameterType="com.rest.api.VO.User">
         update coin_user set user_image='${user_image}' where user_id='${user_id}'
     </update>
-
+    <update id="updatePw" parameterType="com.rest.api.VO.FindPw">
+        update coin_user set user_pw = '${member_pw}' where user_id = '${member_id}'
+    </update>
 </mapper>

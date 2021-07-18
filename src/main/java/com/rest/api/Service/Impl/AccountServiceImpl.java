@@ -7,9 +7,7 @@ import com.rest.api.VO.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,10 +49,5 @@ public class AccountServiceImpl implements AccountService {
     public User getUserInfo(String id) {
 
         return accountDAO.getUserInfo(id);
-    }
-
-    public int uploadImage(MultipartFile file) {
-
-        return accountDAO.uploadImage(file);
     }
 }

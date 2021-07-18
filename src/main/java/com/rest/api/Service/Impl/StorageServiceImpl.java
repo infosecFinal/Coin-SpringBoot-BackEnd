@@ -1,7 +1,6 @@
 package com.rest.api.Service.Impl;
 
 
-import com.rest.api.DAO.AccountDAO;
 import com.rest.api.Service.StorageService;
 import com.rest.api.exception.StorageException;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +20,6 @@ import java.nio.file.StandardCopyOption;
 
 public class StorageServiceImpl implements StorageService {
 
-    @Autowired
-    private final AccountDAO accountDAO;
 
     @Value("${java.io.tmpdir}")
     private String path;

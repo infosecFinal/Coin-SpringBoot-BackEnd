@@ -1,9 +1,11 @@
 package com.rest.api.controller;
 
 import com.rest.api.Service.AccountService;
+import com.rest.api.Service.FindPwService;
 import com.rest.api.Service.ResponseService;
 import com.rest.api.Service.SessionService;
 import com.rest.api.Service.Impl.StorageServiceImpl;
+import com.rest.api.VO.FindPw;
 import com.rest.api.VO.Login;
 import com.rest.api.VO.SessionVO;
 import com.rest.api.VO.User;
@@ -32,6 +34,7 @@ public class AccountController {
     private final AccountService accountService;
     private final ResponseService responseService;
     private final SessionService sessionService;
+    private final FindPwService findPwService;
 
     public String convertStringToHex(String str){
 
@@ -127,12 +130,17 @@ public class AccountController {
         return responseService.getSingleResult(res);
     }
 
-    @ApiOperation(value="계정 이미지 수정", notes="회원의 계정 이미지를 수정한다")
-    @RequestMapping(value = "/mypage/update/upload", method = RequestMethod.POST,
-            consumes = {"multipart/form-data"})
-    public SingleResult<String> uploadImage(@ApiParam(value="계정 이미지 수정") @RequestBody MultipartFile file) throws StorageException {
-        storageServiceImpl.uploadImage(file);
-        return responseService.getSingleResult(storageServiceImpl.uploadImage(file));
-    }
+//    @ApiOperation(value="계정 이미지 수정", notes="회원의 계정 이미지를 수정한다")
+//    @RequestMapping(value = "/mypage/update/upload", method = RequestMethod.POST,
+//            consumes = {"multipart/form-data"})
+//    public SingleResult<String> uploadImage(@ApiParam(value="계정 이미지 수정") @RequestParam MultipartFile file) throws StorageException {
+//        storageServiceImpl.uploadImage(file);
+//        return responseService.getSingleResult(storageServiceImpl.uploadImage(file));
+//    }
 
+    @ApiOperation(value="계정 비밀번호 찾기", notes="비밀번호를 분실한 회원에게 이메일로 임시 비밀번호를 전달한다.")
+    @PostMapping(value = "/findpw")
+    public void findPw(@ApiParam(value="계정 비밀번호 찾기") HttpServletResponse response, @RequestBody FindPw findPw) throws Exception {
+        findPwService.findPw(response, findPw);
+    }
 }
