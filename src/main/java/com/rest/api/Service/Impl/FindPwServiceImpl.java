@@ -23,7 +23,7 @@ public class FindPwServiceImpl implements FindPwService {
         String charSet = "utf-8";
         String hostSMTP = "smtp.naver.com";
         String hostSMTPid = "####@naver.com"; // 서버 email
-        String hostSMTPpwd = "############"; // 서버 password
+        String hostSMTPpwd = "#############"; // 서버 password
 
         String fromEmail = "####@naver.com";
         String fromName = "COINNET_ADMIN";
@@ -47,8 +47,8 @@ public class FindPwServiceImpl implements FindPwService {
             email.setHostName(hostSMTP);
             email.setSmtpPort(587); // 네이버 IMAP/SMTP 설정
             email.setAuthentication(hostSMTPid, hostSMTPpwd);
-            email.addTo(mail, charSet);
-            email.setFrom(fromEmail, fromName, charSet);
+            email.addTo(mail);
+            email.setFrom(fromEmail, fromName);
             email.setSubject(subject);
             email.setHtmlMsg(msg);
             email.send();
