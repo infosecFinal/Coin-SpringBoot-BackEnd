@@ -4,6 +4,7 @@ import com.rest.api.DAO.BoardDAO;
 import com.rest.api.DAO.FileDAO;
 import com.rest.api.Service.BoardService;
 import com.rest.api.VO.BoardVO;
+import com.rest.api.VO.CommentVO;
 import com.rest.api.VO.FileVO;
 import com.rest.api.util.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int writeBoard(BoardVO boardVO) { return boardDAO.writeBoard(boardVO);}
 
-
     @Override
     public int updateBoard(BoardVO boardVO) {
         return boardDAO.updateBoard(boardVO);
@@ -55,5 +55,6 @@ public class BoardServiceImpl implements BoardService {
     public int deleteBoard(BoardVO boardVO) { return boardDAO.deleteBoard(boardVO); }
     @Override
     public BoardVO selectBoardListById(int id) { return boardDAO.selectListById(id); }
+
 
 }

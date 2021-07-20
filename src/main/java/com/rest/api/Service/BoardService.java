@@ -1,6 +1,7 @@
 package com.rest.api.Service;
 
 import com.rest.api.VO.BoardVO;
+import com.rest.api.VO.CommentVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
