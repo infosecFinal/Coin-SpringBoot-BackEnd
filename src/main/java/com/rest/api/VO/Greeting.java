@@ -1,18 +1,20 @@
 package com.rest.api.VO;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.sql.Date;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Greeting {
 
 	private String content;
-
-	public Greeting() {
-	}
-
-	public Greeting(String content) {
-		this.content = content;
-	}
-
-	public String getContent() {
-		return content;
-	}
+	private String time;
 
 }
