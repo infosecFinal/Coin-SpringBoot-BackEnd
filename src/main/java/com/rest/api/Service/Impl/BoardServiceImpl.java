@@ -4,15 +4,9 @@ import com.rest.api.DAO.BoardDAO;
 import com.rest.api.DAO.FileDAO;
 import com.rest.api.Service.BoardService;
 import com.rest.api.VO.BoardVO;
-import com.rest.api.VO.FileVO;
 import com.rest.api.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 @Service

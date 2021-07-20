@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HelloMessage {
+public class LoginVO {
 
-	private String name;
-	private String msg;
+    private String login_id;
+    private String login_pw;
 }

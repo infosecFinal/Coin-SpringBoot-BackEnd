@@ -1,6 +1,5 @@
 package com.rest.api.Service.Impl;
 
-import com.rest.api.DAO.BoardDAO;
 import com.rest.api.DAO.FileDAO;
 import com.rest.api.Service.FileService;
 import com.rest.api.VO.FileVO;
@@ -9,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +19,9 @@ public class FileServiceImpl implements FileService {
     private final FileDAO fileDAO;
     private final FileUtil fileUtil;
     @Override
-    public List<FileVO> selectFileList(int board_idx) {
+    public List<FileVO> selectFileList(int board_id) {
         List<FileVO> lst = new ArrayList<>();
-        lst = fileDAO.selectFile(board_idx);
+        lst = fileDAO.selectFile(board_id);
         return lst;
     }
 
@@ -33,13 +31,14 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public int uploadFile(MultipartFile[] files, int board_idx) throws IOException {
+    public int uploadFile(MultipartFile[] files, int board_id, String user_id) throws IOException {
         int queryResult = 1;
 
-        List<FileVO> fileList = fileUtil.uploadFiles(files, board_idx);
-        System.out.println("after fileList");
+        List<FileVO> fileList = fileUtil.uploadFiles(files, board_id, user_id);
+        System.out.println("after upload...");
+        System.out.println(CollectionUtils.isEmpty(fileList));
         if (!CollectionUtils.isEmpty(fileList)) {
-            queryResult = fileDAO.insertFile(fileList, board_idx);
+            queryResult = fileDAO.insertFile(fileList, board_id, user_id);
             if(queryResult < 1) {
                 queryResult = 0;
             }

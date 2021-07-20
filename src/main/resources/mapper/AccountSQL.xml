@@ -3,7 +3,7 @@
 
 <mapper namespace="com.rest.api.DAO.AccountDAO">
 
-    <insert id="setUser" parameterType="com.rest.api.VO.User">
+    <insert id="setUser" parameterType="com.rest.api.VO.UserVO">
         INSERT INTO coin_user (user_id, user_pw, user_name, user_phone, user_address, user_email, user_gender, user_image)
             VALUES ('${user_id}', '${user_pw}', '${user_name}', '${user_phone}', '${user_address}', '${user_email}', '${user_gender}', '${user_image')
     </insert>
@@ -12,24 +12,26 @@
         select user_id from coin_user where user_id='${value}'
     </select>
 
-    <select id="getUser" parameterType="com.rest.api.VO.Login" resultType="com.rest.api.VO.User">
+    <select id="getUser" parameterType="com.rest.api.VO.LoginVO" resultType="com.rest.api.VO.UserVO">
         select * from coin_user where user_id='${login_id}' and user_pw='${login_pw}'
     </select>
 
-    <delete id="deleteUser" parameterType="com.rest.api.VO.Login">
+    <delete id="deleteUser" parameterType="com.rest.api.VO.LoginVO">
         delete from coin_user where user_id='${login_id}' and user_pw='${login_pw}'
     </delete>
 
-    <select id="getUserInfo" parameterType="String" resultType="com.rest.api.VO.User">
+    <select id="getUserInfo" parameterType="String" resultType="com.rest.api.VO.UserVO">
         select user_id, user_name,user_phone, user_address, user_email, user_gender from coin_user where user_id='${login_id}'
     </select>
 
-    <update id="updateUser" parameterType="com.rest.api.VO.User">
+    <update id="updateUser" parameterType="com.rest.api.VO.UserVO">
         update coin_user set user_pw='${user_pw}', user_phone='${user_phone}', user_address='${user_address}'where user_id='${user_id}'
     </update>
-    <update id="uploadImage" parameterType="com.rest.api.VO.User">
-        update coin_user set user_image='${user_image}' where user_id='${user_id}'
+
+    <update id="uploadImage" parameterType="com.rest.api.VO.ProfileImg">
+        update coin_user set user_image='${profile_image}' where user_id='${profile_id}'
     </update>
+
     <update id="updatePw" parameterType="com.rest.api.VO.FindPw">
         update coin_user set user_pw = '${member_pw}' where user_id = '${member_id}'
     </update>

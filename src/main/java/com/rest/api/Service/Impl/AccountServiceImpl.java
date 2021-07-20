@@ -2,12 +2,11 @@ package com.rest.api.Service.Impl;
 
 import com.rest.api.DAO.AccountDAO;
 import com.rest.api.Service.AccountService;
-import com.rest.api.VO.Login;
-import com.rest.api.VO.User;
+import com.rest.api.VO.LoginVO;
+import com.rest.api.VO.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 @Service
 @RequiredArgsConstructor
@@ -17,9 +16,9 @@ public class AccountServiceImpl implements AccountService {
     private final AccountDAO accountDAO;
 
     @Override
-    public int insertUser(User user) {
+    public int insertUser(UserVO userVO) {
 
-        return accountDAO.setUser(user);
+        return accountDAO.setUser(userVO);
     }
 
     public String getUserIDList(String id) {
@@ -28,25 +27,25 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public User checkUser(Login login) {
+    public UserVO checkUser(LoginVO loginVO) {
 
-        return accountDAO.getUser(login);
+        return accountDAO.getUser(loginVO);
     }
 
     @Override
-    public int deleteUser(Login login) {
+    public int deleteUser(LoginVO loginVO) {
 
-        return accountDAO.deleteUser(login);
+        return accountDAO.deleteUser(loginVO);
     }
 
     @Override
-    public int updateUser(User user) {
+    public int updateUser(UserVO userVO) {
 
-        return accountDAO.updateUser(user);
+        return accountDAO.updateUser(userVO);
     }
 
     @Override
-    public User getUserInfo(String id) {
+    public UserVO getUserInfo(String id) {
 
         return accountDAO.getUserInfo(id);
     }

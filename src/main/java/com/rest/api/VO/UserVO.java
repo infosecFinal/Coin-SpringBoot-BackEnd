@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserVO {
     private String user_id;
     private String user_pw;
     private String user_name;

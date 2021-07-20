@@ -12,9 +12,9 @@ import java.sql.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Greeting {
+public class GreetingVO {
 
-	private String content;
-	private String time;
+    private String content;
+    private String time;
 
 }

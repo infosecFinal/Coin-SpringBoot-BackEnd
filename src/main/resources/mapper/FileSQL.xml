@@ -3,7 +3,7 @@
 
 <mapper namespace="com.rest.api.DAO.FileDAO">
     <sql id="FileColumns">
-        id,board_id,file_name,origin_file_name,file_path,fileAvailable,content_type
+        idx, user_id, board_id, page_type, file_name, origin_file_name, file_path, available, content_type
     </sql>
 
 <!--    <insert id="insertFile">-->
@@ -27,7 +27,9 @@
         <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
             into file_db(<include refid="FileColumns"/>) values(
             get_seq('file_id_seq'),
-            ${board_idx},
+            '${user_id}',
+            ${board_id},
+            'BOARD',
             '${item.file_Name}',
             '${item.origin_file_Name}',
             '${item.file_Path}',
@@ -41,15 +43,15 @@
     </update>
 
     <select id="selectFile" resultType="com.rest.api.VO.FileVO">
-        select * from file_db where fileAvailable='T' and board_id=${board_id}
+        select * from file_db where Available='T' and board_id=${board_id}
     </select>
 
     <select id="selectFileById" resultType="com.rest.api.VO.FileVO">
-        select * from file_db where fileAvailable='T' and id=${id}
+        select * from file_db where Available='T' and id=${id}
     </select>
 
     <update id="deleteFile" parameterType="int">
-        update file_db set fileAvailable='F' where id=${file_id}
+        update file_db set Available='F' where id=${file_id}
     </update>
 
 

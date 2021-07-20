@@ -1,8 +1,9 @@
 package com.rest.api.DAO;
 
 import com.rest.api.VO.FindPw;
-import com.rest.api.VO.Login;
-import com.rest.api.VO.User;
+import com.rest.api.VO.LoginVO;
+import com.rest.api.VO.ProfileImg;
+import com.rest.api.VO.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -10,11 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper
 public interface AccountDAO {
-    int setUser(User user);
+    int setUser(UserVO userVO);
     String getUserIDList(String id);
-    User getUser(Login login);
-    int deleteUser(Login login);
-    int updateUser(User user);
-    User getUserInfo(@Param("login_id")String id);
+    UserVO getUser(LoginVO loginVO);
+    int deleteUser(LoginVO loginVO);
+    int updateUser(UserVO userVO);
+    UserVO getUserInfo(@Param("login_id")String id);
     void updatePw(FindPw user) throws Exception;
+    String uploadImage(ProfileImg profileImg);
 }

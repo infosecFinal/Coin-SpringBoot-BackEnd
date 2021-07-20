@@ -6,7 +6,6 @@ import com.rest.api.VO.FindPw;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.Random;
@@ -22,10 +21,10 @@ public class FindPwServiceImpl implements FindPwService {
 
         String charSet = "utf-8";
         String hostSMTP = "smtp.naver.com";
-        String hostSMTPid = "####@naver.com"; // 서버 email
-        String hostSMTPpwd = "#############"; // 서버 password
+        String hostSMTPid = "insfo_sample@naver.com"; // 서버 email
+        String hostSMTPpwd = "sechacking123"; // 서버 password
 
-        String fromEmail = "####@naver.com";
+        String fromEmail = "insfo_sample@naver.com";
         String fromName = "COINNET_ADMIN";
         String subject = "";
         String msg = "";

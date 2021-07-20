@@ -1,8 +1,6 @@
 package com.rest.api.controller;
 
-import com.rest.api.DAO.BoardDAO;
 import com.rest.api.Service.BoardService;
-import com.rest.api.Service.Impl.BoardServiceImpl;
 import com.rest.api.Service.ResponseService;
 import com.rest.api.VO.BoardVO;
 import com.rest.api.model.response.ListResult;
@@ -12,10 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
