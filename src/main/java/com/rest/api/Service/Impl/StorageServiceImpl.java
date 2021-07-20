@@ -1,7 +1,10 @@
 package com.rest.api.Service.Impl;
 
 
+import com.rest.api.DAO.AccountDAO;
+import com.rest.api.Service.AccountService;
 import com.rest.api.Service.StorageService;
+import com.rest.api.VO.ProfileImg;
 import com.rest.api.exception.StorageException;
 import lombok.RequiredArgsConstructor;
 import lombok.var;
@@ -20,28 +23,26 @@ import java.nio.file.StandardCopyOption;
 
 public class StorageServiceImpl implements StorageService {
 
-
     @Value("${java.io.tmpdir}")
     private String path;
+    private final AccountDAO accountDAO;
 
-    public String uploadImage(MultipartFile file) throws StorageException {
-
-        if (file.isEmpty()) {
-
+    public String uploadImage(ProfileImg profileImg) throws StorageException {
+        if (profileImg.getProfile_image().isEmpty()) {
             throw new StorageException("Failed to store empty file");
         }
-
         try {
-            var fileName = file.getOriginalFilename();
-            var is = file.getInputStream();
-
-            Files.copy(is, Paths.get(path + fileName), StandardCopyOption.REPLACE_EXISTING);
+            String id_ck = accountDAO.getUserIDList(profileImg.getProfile_id());
+            if(id_ck.equals(profileImg.getProfile_id())) {
+                var fileName = profileImg.getProfile_image().getOriginalFilename();
+                var is = profileImg.getProfile_image().getInputStream();
+                Files.copy(is, Paths.get(path + fileName), StandardCopyOption.REPLACE_EXISTING);
+            }
         } catch (IOException e) {
-
-            var msg = String.format("Failed to store file %f", file.getName());
-
+            var msg = String.format("Failed to store file %f", profileImg.getProfile_image().getName());
             throw new StorageException(msg, e);
         }
-        return path+file.getOriginalFilename();
+        accountDAO.uploadImage((ProfileImg) profileImg.getProfile_image());
+        return path+profileImg.getProfile_image().getOriginalFilename();
     }
 }
