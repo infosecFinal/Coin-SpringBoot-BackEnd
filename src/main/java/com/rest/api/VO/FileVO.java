@@ -20,4 +20,19 @@ public class FileVO {
     private String file_Path;
     private char available;
     private String content_type;
+
+    @Override
+    public String toString() {
+        return "FileVO{" +
+                "idx=" + idx +
+                ", user_id='" + user_id + '\'' +
+                ", board_id=" + board_id +
+                ", page_type='" + page_type + '\'' +
+                ", file_Name='" + file_Name + '\'' +
+                ", origin_file_Name='" + origin_file_Name + '\'' +
+                ", file_Path='" + file_Path + '\'' +
+                ", available=" + available +
+                ", content_type='" + content_type + '\'' +
+                '}';
+    }
 }

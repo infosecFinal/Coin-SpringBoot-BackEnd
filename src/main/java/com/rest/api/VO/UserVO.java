@@ -19,6 +19,20 @@ public class UserVO {
     private String user_email;
     private String user_gender;
     private Boolean isAdmin;
-    private MultipartFile user_image;
+    private int image_idx;
 
+    @Override
+    public String toString() {
+        return "UserVO{" +
+                "user_id='" + user_id + '\'' +
+                ", user_pw='" + user_pw + '\'' +
+                ", user_name='" + user_name + '\'' +
+                ", user_phone='" + user_phone + '\'' +
+                ", user_address='" + user_address + '\'' +
+                ", user_email='" + user_email + '\'' +
+                ", user_gender='" + user_gender + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", image_idx=" + image_idx +
+                '}';
+    }
 }

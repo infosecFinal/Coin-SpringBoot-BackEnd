@@ -4,9 +4,7 @@ import com.rest.api.Service.AccountService;
 import com.rest.api.Service.FindPwService;
 import com.rest.api.Service.ResponseService;
 import com.rest.api.Service.SessionService;
-import com.rest.api.Service.Impl.StorageServiceImpl;
 import com.rest.api.VO.*;
-import com.rest.api.exception.StorageException;
 import com.rest.api.model.response.CommonResult;
 import com.rest.api.model.response.SingleResult;
 import io.swagger.annotations.Api;
@@ -39,9 +37,6 @@ public class AccountController {
         }
         return hex.toString();
     }
-
-    @Autowired
-    private final StorageServiceImpl storageServiceImpl;
 
     @ApiOperation(value="계정 생성", notes="회원 가입을 한다")
     @PostMapping(value="/register")
@@ -114,17 +109,11 @@ public class AccountController {
 
     @ApiOperation(value="계정 정보수정", notes="회원의 계정 정보를 수정한다")
     @PostMapping(value="/mypage/update")
-    public SingleResult<Integer> updateUser(@ApiParam(value="계정 정보수정") @RequestBody UserVO userVO){
+    public SingleResult<Integer> updateUser(@ApiParam(value="계정 정보수정") @RequestBody UserVO userVO) {
         int res = accountService.updateUser(userVO);
+        System.out.println(userVO.toString());
         if (res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);
-    }
-
-    @ApiOperation(value="계정 이미지 수정", notes="회원의 계정 이미지를 수정한다")
-    @PostMapping(value = "/mypage/update/upload", consumes = {"multipart/form-data"})
-    public SingleResult<String> uploadImage(@ApiParam(value="계정 이미지 수정") @ModelAttribute ProfileImg profileImg) throws StorageException {
-        storageServiceImpl.uploadImage((ProfileImg) profileImg.getProfile_image());
-        return responseService.getSingleResult(storageServiceImpl.uploadImage(profileImg));
     }
 
     @ApiOperation(value="계정 비밀번호 찾기", notes="비밀번호를 분실한 회원에게 이메일로 임시 비밀번호를 전달한다.")

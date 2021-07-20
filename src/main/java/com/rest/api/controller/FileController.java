@@ -40,9 +40,34 @@ public class FileController {
         int idx = 0;
         if(board_id.equals("new")) idx = boardService.selectBoardList().get(0).getId();
         else idx = Integer.parseInt(board_id);
+
         int res = fileService.uploadFile(files, idx, user_id);
+
         if (res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);
+    }
+
+    @ApiOperation(value="프로필 이미지 검색", notes="해당 유저의 프로필 이미지 접근")
+    @GetMapping(value="/profile/{user}")
+    public void download(HttpServletResponse resp, @ApiParam("유저 id")@PathVariable String user) {
+        System.out.println("download");
+        FileVO fileVO = fileService.selectProfile(user);
+        String uploadPath = fileVO.getFile_Path();
+        String fileName = fileVO.getOrigin_file_Name();
+        File file = new File(uploadPath, fileVO.getFile_Name());
+
+        try {
+            byte[] data = FileUtils.readFileToByteArray(file);
+            resp.setContentType("application/octet-stream");
+            resp.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
+            resp.getOutputStream().write(data);
+            resp.getOutputStream().flush();
+            resp.getOutputStream().close();
+        } catch (IOException e) {
+            throw new RuntimeException("파일 다운로드 실패");
+        } catch (Exception e) {
+            throw new RuntimeException("시스템 에러");
+        }
     }
 
     @ApiOperation(value="파일 삭제", notes="파일 접근을 불가능하도록 한다")
@@ -64,19 +89,17 @@ public class FileController {
     @ApiOperation(value="파일 다운로드", notes="파일 번호로 다운로드")
     @GetMapping(value="/download/{id}")
     @CrossOrigin(value={"*"}, exposedHeaders = {"Content-Disposition"})
-    public void download(HttpServletResponse resp, @ApiParam("파일 id")@PathVariable int id) throws IOException {
+    public void download(HttpServletResponse resp, @ApiParam("파일 id")@PathVariable int id) {
         FileVO fileVO = fileService.selectFileById(id);
-        System.out.println(fileVO.getFile_Name());
+
         String uploadPath = fileVO.getFile_Path();
         String fileName = fileVO.getOrigin_file_Name();
-
         File file = new File(uploadPath, fileVO.getFile_Name());
 
         try {
             byte[] data = FileUtils.readFileToByteArray(file);
             resp.setContentType("application/octet-stream");
             resp.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
-            System.out.println(resp);
             resp.getOutputStream().write(data);
             resp.getOutputStream().flush();
             resp.getOutputStream().close();

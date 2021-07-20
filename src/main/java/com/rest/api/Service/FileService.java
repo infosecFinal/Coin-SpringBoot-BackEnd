@@ -10,4 +10,5 @@ public interface FileService {
     FileVO selectFileById(int id);
     int uploadFile(MultipartFile[] files, int board_id, String user_id) throws IOException;
     int deleteFile(int file_id);
+    FileVO selectProfile(String user_id);
 }
