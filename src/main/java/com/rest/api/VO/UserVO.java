@@ -18,6 +18,7 @@ public class UserVO {
     private String user_address;
     private String user_email;
     private String user_gender;
+    private Boolean isAdmin;
     private MultipartFile user_image;
 
 }
