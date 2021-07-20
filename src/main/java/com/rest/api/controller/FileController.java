@@ -35,17 +35,12 @@ public class FileController {
     @ApiOperation(value="파일 업로드", notes="파일을 업로드한다")
     @PostMapping(value="/upload")
     public SingleResult<Integer> uploadFile(@ApiParam(value="파일 업로드") @RequestBody MultipartFile[] files, HttpServletRequest req) throws IOException {
-        System.out.println("file length: "+files.length);
         String user_id = req.getParameter("user_id");
         String board_id = req.getParameter("board_id");
-        System.out.println("user_id: "+ user_id);
-        System.out.println("board_id: "+ board_id);
         int idx = 0;
         if(board_id.equals("new")) idx = boardService.selectBoardList().get(0).getId();
         else idx = Integer.parseInt(board_id);
-        System.out.println(board_id);
         int res = fileService.uploadFile(files, idx, user_id);
-        System.out.println("res"+res);
         if (res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);
     }
@@ -53,7 +48,7 @@ public class FileController {
     @ApiOperation(value="파일 삭제", notes="파일 접근을 불가능하도록 한다")
     @PostMapping(value="/delete")
     public SingleResult<Integer> deleteFile(@ApiParam(value="파일 삭제") @RequestBody FileVO fileVO) {
-        int res = fileService.deleteFile(fileVO.getId());
+        int res = fileService.deleteFile(fileVO.getIdx());
         if(res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);
     }
@@ -71,6 +66,7 @@ public class FileController {
     @CrossOrigin(value={"*"}, exposedHeaders = {"Content-Disposition"})
     public void download(HttpServletResponse resp, @ApiParam("파일 id")@PathVariable int id) throws IOException {
         FileVO fileVO = fileService.selectFileById(id);
+        System.out.println(fileVO.getFile_Name());
         String uploadPath = fileVO.getFile_Path();
         String fileName = fileVO.getOrigin_file_Name();
 

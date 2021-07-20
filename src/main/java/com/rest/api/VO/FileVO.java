@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FileVO {
 
-    private int id;
+    private int idx;
     private String user_id;
     private int board_id;
     private String page_type;

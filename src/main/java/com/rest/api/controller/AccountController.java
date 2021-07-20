@@ -96,7 +96,6 @@ public class AccountController {
     public SingleResult<UserVO> getUserInfo(@CookieValue(value="access_token", required=false) Cookie access_token) throws Exception {
         if(access_token == null) throw new RuntimeException();
         String cookie = access_token.getValue();
-        System.out.println(cookie);
         SessionVO sess = sessionService.getSession(cookie);
         if(sess == null) {
             throw new RuntimeException();
