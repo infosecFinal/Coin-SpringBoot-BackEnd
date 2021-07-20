@@ -30,7 +30,7 @@
     </select>
 
     <update id="deleteFile" parameterType="int">
-        update file_db set Available='F' where id=${file_id}
+        update file_db set Available='F' where idx=${file_id}
     </update>
 
 
