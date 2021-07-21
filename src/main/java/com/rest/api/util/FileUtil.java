@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Component
 public class FileUtil {
-    private final String uploadPath = Paths.get("/Users", "youngseo", "Downloads").toString();
+    private final String uploadPath = Paths.get("C:", "Temp", "Upload").toString();
 
     private final String getRandomString() {
         return UUID.randomUUID().toString().replaceAll("-", "");
@@ -54,6 +54,7 @@ public class FileUtil {
                 fileVO.setFile_Path(uploadPath);
                 fileVO.setBoard_id(board_id);
                 fileVO.setContent_type(file.getContentType());
+                System.out.println(fileVO.toString());
                 file_lst.add(fileVO);
             } catch (IOException e) {
                 throw new AttachFileException("[" + file.getOriginalFilename() + "] failed to save file...");

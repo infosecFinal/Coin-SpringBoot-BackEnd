@@ -5,24 +5,6 @@
     <sql id="FileColumns">
         idx, user_id, board_id, page_type, file_Name, origin_file_Name, file_Path, available, content_type
     </sql>
-
-<!--    <insert id="insertFile">-->
-<!--        insert into file_db(<include refid="FileColumns" />) values-->
-<!--        <foreach collection="list" item="item" separator=",">(-->
-<!--            file_id_seq.NEXTVAL,-->
-<!--            ${board_idx},-->
-<!--            '${item.file_Name}',-->
-<!--            '${item.origin_file_Name}',-->
-<!--            '${item.file_Path}',-->
-<!--            'T',-->
-<!--            '${item.content_type}'-->
-<!--        )-->
-<!--        </foreach>-->
-<!--        <selectKey keyProperty="id" resultType="int" order="AFTER">-->
-<!--            select file_id_seq.CURRVAL FROM DUAL-->
-<!--        </selectKey>-->
-<!--    </insert>-->
-
     <update id="insertFile">
         <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" ">
             into file_db(<include refid="FileColumns"/>) values(
@@ -37,9 +19,6 @@
             '${item.content_type}'
             )
         </foreach>
-<!--        <selectKey keyProperty="id" resultType="int" order="AFTER">-->
-<!--            select file_id_seq.CURRVAL FROM DUAL-->
-<!--        </selectKey>-->
     </update>
 
     <select id="selectFile" resultType="com.rest.api.VO.FileVO">
