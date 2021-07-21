@@ -4,9 +4,7 @@ import com.rest.api.DAO.AccountDAO;
 import com.rest.api.Service.FindPwService;
 import com.rest.api.VO.FindPw;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +22,6 @@ public class FindPwServiceImpl implements FindPwService {
 
     @Override
     public void sendEmail(FindPw findPw, String div) {
-
-        String charSet = "utf-8";
-        String hostSMTP = "smtp.naver.com";
-        String hostSMTPid = "insfo_sample@naver.com"; // 서버 email
-        String hostSMTPpwd = "sechacking123"; // 서버 password
 
         String fromEmail = "insfo_sample@naver.com";
         String fromName = "COINNET_ADMIN";

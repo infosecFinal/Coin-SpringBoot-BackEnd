@@ -31,4 +31,9 @@
     <update id="updatePw" parameterType="com.rest.api.VO.FindPw">
         update coin_user set user_pw = '${member_pw}' where user_id = '${member_id}'
     </update>
+
+    <select id="findAddressList" parameterType="String" resultType="com.rest.api.VO.AddressVO">
+        select * from address where dong LIKE ('%${user_dong}%')
+    </select>
+
 </mapper>

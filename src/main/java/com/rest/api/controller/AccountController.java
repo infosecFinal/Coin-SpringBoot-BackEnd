@@ -6,6 +6,7 @@ import com.rest.api.Service.ResponseService;
 import com.rest.api.Service.SessionService;
 import com.rest.api.VO.*;
 import com.rest.api.model.response.CommonResult;
+import com.rest.api.model.response.ListResult;
 import com.rest.api.model.response.SingleResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,8 +14,12 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.search.AddressStringTerm;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Api(tags = {"1. Account"})
 @RequiredArgsConstructor
@@ -120,5 +125,15 @@ public class AccountController {
     @PostMapping(value = "/findpw")
     public void findPw(@ApiParam(value="계정 비밀번호 찾기") HttpServletResponse response, @RequestBody FindPw findPw) throws Exception {
         findPwService.findPw(response, findPw);
+    }
+
+    @ApiOperation(value="회원 주소 검색", notes="동/읍으로 국내 주소를 검색한다.")
+    @GetMapping(value = "/findaddress")
+    public ListResult<AddressVO> findAddressList(HttpServletRequest req) {
+        String user_dong = req.getParameter("user_dong");
+        System.out.println(user_dong);
+        List<AddressVO> address = accountService.findAddressList(user_dong);
+        if(address == null) throw new RuntimeException();
+        return responseService.getListResult(address);
     }
 }
