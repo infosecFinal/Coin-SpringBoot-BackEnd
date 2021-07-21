@@ -5,7 +5,12 @@ import com.rest.api.Service.FindPwService;
 import com.rest.api.VO.FindPw;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.mail.HtmlEmail;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.util.Random;
@@ -15,6 +20,7 @@ import java.util.Random;
 public class FindPwServiceImpl implements FindPwService {
 
     private final AccountDAO accountDAO;
+    private final JavaMailSender javaMailSender;
 
     @Override
     public void sendEmail(FindPw findPw, String div) {
@@ -40,17 +46,31 @@ public class FindPwServiceImpl implements FindPwService {
 
         String mail = findPw.getMember_email();
         try {
-            HtmlEmail email = new HtmlEmail();
-            email.setDebug(true);
-            email.setCharset(charSet);
-            email.setHostName(hostSMTP);
-            email.setSmtpPort(587); // 네이버 IMAP/SMTP 설정
-            email.setAuthentication(hostSMTPid, hostSMTPpwd);
-            email.addTo(mail);
-            email.setFrom(fromEmail, fromName);
-            email.setSubject(subject);
-            email.setHtmlMsg(msg);
-            email.send();
+//            HtmlEmail email = new HtmlEmail();
+//            email.setDebug(true);
+//            email.setCharset(charSet);
+//            email.setHostName(hostSMTP);
+//            email.setSmtpPort(587); // 네이버 IMAP/SMTP 설정
+//            email.setAuthentication(hostSMTPid, hostSMTPpwd);
+//            email.addTo(mail);
+//            email.setFrom(fromEmail, fromName);
+//            email.setSubject(subject);
+//            email.setHtmlMsg(msg);
+//            email.send();
+//            System.out.println("메일발송 성공");
+            System.out.println("first");
+            MimeMessage message = javaMailSender.createMimeMessage();
+            System.out.println(message.toString());
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true, "UTF-8");
+            mimeMessageHelper.setFrom(fromEmail, fromName);
+            System.out.println("second");
+            System.out.println(fromEmail);
+            mimeMessageHelper.setTo(mail);
+            System.out.println(mail);
+            mimeMessageHelper.setSubject(subject);
+            mimeMessageHelper.setText(msg, true);
+
+            javaMailSender.send(message);
             System.out.println("메일발송 성공");
         } catch (Exception e) {
             System.out.println("메일발송 실패 : " + e);
