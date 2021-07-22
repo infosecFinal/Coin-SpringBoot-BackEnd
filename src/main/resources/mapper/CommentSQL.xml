@@ -16,4 +16,8 @@
         select * from COMMENT_DB where available=1 and board_id=${board_id}
     </select>
 
+    <update id="deleteComment" parameterType="com.rest.api.VO.CommentVO">
+        update COMMENT_DB set available=0 where comment_id=${comment_id}
+    </update>
+
 </mapper>

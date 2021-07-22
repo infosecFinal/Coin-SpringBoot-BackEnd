@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface CommentDAO {
     int insertComment(CommentVO comment);
+    int deleteComment(CommentVO comment);
     List<CommentVO> selectCommentByBoard(@Param("board_id") int board_id);
 }

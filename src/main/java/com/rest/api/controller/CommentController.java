@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Api(tags={"4. Comment"})
@@ -41,4 +42,12 @@ public class CommentController {
         return responseService.getListResult(list);
     }
 
+    @ApiOperation(value="댓글 삭제", notes="DB에 저장된 해당 board의 댓글 삭제₩")
+    @PostMapping(value="/delete")
+    public SingleResult<Integer> deleteComment(@ApiParam(value="댓글 삭제") @RequestBody CommentVO comment) {
+        System.out.println(comment);
+        int res = commentService.deleteComment(comment);
+        if ( res < 1) throw new RuntimeException();
+        return responseService.getSingleResult(res);
+    }
 }

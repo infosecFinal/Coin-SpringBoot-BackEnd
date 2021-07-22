@@ -20,6 +20,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public int deleteComment(CommentVO comment) { return commentDAO.deleteComment(comment); }
+
+    @Override
     public List<CommentVO> selectCommentByBoard(int board_id) {
         return commentDAO.selectCommentByBoard(board_id);
     }
