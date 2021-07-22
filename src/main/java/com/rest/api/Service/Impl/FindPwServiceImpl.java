@@ -64,14 +64,12 @@ public class FindPwServiceImpl implements FindPwService {
         String id_ck = accountDAO.getUserIDList(findPw.getMember_id());
         String email_ck = accountDAO.getUserInfo(findPw.getMember_id()).getUser_email();
         System.out.println(email_ck);
-        PrintWriter out = response.getWriter();
+
 
         if (id_ck == null) {
-            out.print("가입되지 않은 아이디입니다.");
-            out.close();
+            throw new RuntimeException();
         } else if (!email_ck.equals(findPw.getMember_email())) {
-            out.print("올바르지 않은 이메일입니다.");
-            out.close();
+            throw new RuntimeException();
         } else {
             StringBuilder new_pw = new StringBuilder();
             Random rand = new Random();
@@ -85,8 +83,6 @@ public class FindPwServiceImpl implements FindPwService {
             findPw.setMember_pw(new_pw.toString());
             accountDAO.updatePw(findPw);
             sendEmail(findPw, "findpw");
-            out.print("이메일로 임시 비밀번호를 발송하였습니다.");
-            out.close();
         }
     }
 }
