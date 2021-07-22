@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rest.api.DAO.SessionDAO">
+    <insert id="insertSession">
+        insert into sess(session_id, user_id) values ('${sess_id}', '${user_id}')
+    </insert>
+
+    <select id="getSession" resultType="com.rest.api.VO.SessionVO">
+        select * from sess where session_id='${sess_id}'
+    </select>
+
+</mapper>
