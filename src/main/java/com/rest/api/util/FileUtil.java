@@ -3,6 +3,7 @@ package com.rest.api.util;
 import com.rest.api.VO.FileVO;
 import com.rest.api.VO.UserVO;
 import com.rest.api.exception.AttachFileException;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 @Component
 public class FileUtil {
-    private final String uploadPath = Paths.get("/Users", "youngseo", "Downloads").toString();
+    private final String uploadPath = Paths.get("/usr", "local", "tomcat", "webapps","Coin-Weak",  "upload").toString();
 //    private final String uploadPath = Paths.get("C:", "Temp", "Upload").toString();
 
     private final String getRandomString() {
@@ -35,9 +36,15 @@ public class FileUtil {
         for (MultipartFile file : files) {
             try {
                 String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
-                String saveName = getRandomString() + "." + extension;
-
-                File target = new File(uploadPath, saveName);
+                String originName = FilenameUtils.removeExtension(file.getOriginalFilename());
+                String saveName = originName + "."+extension;
+                int i = 1;
+                File target = new File(uploadPath, file.getOriginalFilename());
+                while(target.exists()) {
+                    saveName = originName+Integer.toString(i)+"."+extension;
+                    target = new File(uploadPath, saveName );
+                    i++;
+                }
                 file.transferTo(target);
                 FileVO fileVO = new FileVO();
                 fileVO.setUser_id(user_id);
@@ -48,14 +55,12 @@ public class FileUtil {
                     fileVO.setPage_type("MYPAGE");
                 }
 
-                System.out.println(fileVO.getPage_type());
                 fileVO.setOrigin_file_Name(file.getOriginalFilename());
-                System.out.println(file.getOriginalFilename());
                 fileVO.setFile_Name(saveName);
                 fileVO.setFile_Path(uploadPath);
                 fileVO.setBoard_id(board_id);
                 fileVO.setContent_type(file.getContentType());
-                System.out.println(fileVO.toString());
+
                 file_lst.add(fileVO);
             } catch (IOException e) {
                 throw new AttachFileException("[" + file.getOriginalFilename() + "] failed to save file...");

@@ -86,15 +86,14 @@ public class FileController {
         return responseService.getListResult(files);
     }
 
-    @ApiOperation(value="파일 다운로드", notes="파일 번호로 다운로드")
-    @GetMapping(value="/download/{id}")
+    @ApiOperation(value="파일 다운로드", notes="파일 경로 및 이름으로 다운로드")
+    @GetMapping(value="/download")
     @CrossOrigin(value={"*"}, exposedHeaders = {"Content-Disposition"})
-    public void download(HttpServletResponse resp, @ApiParam("파일 id")@PathVariable int id) {
-        FileVO fileVO = fileService.selectFileById(id);
-
-        String uploadPath = fileVO.getFile_Path();
-        String fileName = fileVO.getOrigin_file_Name();
-        File file = new File(uploadPath, fileVO.getFile_Name());
+    public void download(HttpServletRequest req, HttpServletResponse resp) {
+        String uploadPath = req.getParameter("filePath");
+        String fileName = req.getParameter("fileName");
+        System.out.println(uploadPath+" "+fileName);
+        File file = new File(uploadPath, fileName);
 
         try {
             byte[] data = FileUtils.readFileToByteArray(file);
