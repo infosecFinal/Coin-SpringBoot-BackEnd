@@ -124,6 +124,7 @@ public class AccountController {
     @ApiOperation(value="계정 비밀번호 찾기", notes="비밀번호를 분실한 회원에게 이메일로 임시 비밀번호를 전달한다.")
     @PostMapping(value = "/findpw")
     public void findPw(@ApiParam(value="계정 비밀번호 찾기") HttpServletResponse response, @RequestBody FindPw findPw) throws Exception {
+
         findPwService.findPw(response, findPw);
     }
 

@@ -16,8 +16,7 @@ import java.util.UUID;
 
 @Component
 public class FileUtil {
-    private final String uploadPath = Paths.get("/Users", "youngseo", "Downloads").toString();
-//    private final String uploadPath = Paths.get("C:", "Temp", "Upload").toString();
+    private final String uploadPath = Paths.get("/var", "tmp", "upload").toString();
 
     private final String getRandomString() {
         return UUID.randomUUID().toString().replaceAll("-", "");

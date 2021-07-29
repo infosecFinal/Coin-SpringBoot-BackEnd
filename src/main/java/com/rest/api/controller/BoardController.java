@@ -67,6 +67,7 @@ public class BoardController {
     public ListResult<BoardVO> findList(HttpServletRequest req) {
         String category = req.getParameter("category");
         String content = req.getParameter("content");
+        System.out.println("contents: "+ content);
         List<BoardVO> board = new ArrayList<>();
         if(category.equals("title")) {
             board = boardService.selectListByTitle(content);

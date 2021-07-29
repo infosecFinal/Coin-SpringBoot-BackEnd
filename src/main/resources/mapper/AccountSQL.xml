@@ -33,7 +33,7 @@
     </update>
 
     <select id="findAddressList" parameterType="String" resultType="com.rest.api.VO.AddressVO">
-        select * from address where dong LIKE ('%${user_dong}%')
+        select * from address where dong LIKE '%${user_dong}%'
     </select>
 
 </mapper>
