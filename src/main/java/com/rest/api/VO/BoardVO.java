@@ -13,6 +13,18 @@ import java.sql.Date;
 public class BoardVO {
     private int id;
     private String title;
+
+    @Override
+    public String toString() {
+        return "BoardVO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", created_at=" + created_at +
+                '}';
+    }
+
     private String content;
     private String user_id;
     private Date created_at;
