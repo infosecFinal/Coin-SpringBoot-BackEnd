@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rest.api.DAO.ChartDAO">
+    <select id="getBtcList" resultType="com.rest.api.VO.ChartVO">
+        select * from BTC_COIN_ORACLE
+    </select>
+    <select id="getEthList" resultType="com.rest.api.VO.ChartVO">
+        select * from ETH_COIN_ORACLE
+    </select>
+    <select id="selectBtcDateList" resultType="com.rest.api.VO.ChartVO" parameterType="String">
+        select * from BTC_COIN_ORACLE where datetime like '%${datetime}%'
+    </select>
+</mapper>
