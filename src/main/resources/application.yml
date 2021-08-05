@@ -1,5 +1,16 @@
 server:
   port: 8083
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        secure: false
+      tracking-modes: cookie
+#  ssl:
+#    key-alias: hhhoh-store
+#    key-store: classpath:hhhoh-keystore.p12
+#    key-store-password: 1313
+#    key-store-type: PKCS12
 
 spring:
   mail:
@@ -12,7 +23,7 @@ spring:
       mail.smtp.ssl.enable: true
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:11521/xe
+    url: jdbc:oracle:thin:@10.0.1.100:11521/xe
     username: mybtc
     password: mybtc
   servlet:
@@ -21,6 +32,13 @@ spring:
       max-request-size: 50MB
   jmx:
     enabled: false
+  redis:
+    host: localhost
+    port: 6379
+  session:
+    store-type: redis
+    redis:
+      namespace: spring:session
 
 mybatis:
   type-aliases-package: com.rest.api.VO

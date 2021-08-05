@@ -5,35 +5,35 @@
 
     <insert id="setUser" parameterType="com.rest.api.VO.UserVO">
         INSERT INTO coin_user (user_id, user_pw, user_name, user_phone, user_address, user_email, user_gender)
-            VALUES ('${user_id}', '${user_pw}', '${user_name}', '${user_phone}', '${user_address}', '${user_email}', '${user_gender}')
+            VALUES (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_address}, #{user_email}, #{user_gender})
     </insert>
 
     <select id="getUserIDList" parameterType="String" resultType="String">
-        select user_id from coin_user where user_id='${value}'
+        select user_id from coin_user where user_id=#{value}
     </select>
 
     <select id="getUser" parameterType="com.rest.api.VO.LoginVO" resultType="com.rest.api.VO.UserVO">
-        select * from coin_user where user_id='${login_id}' and user_pw='${login_pw}'
+        select * from coin_user where user_id=#{login_id} and user_pw=#{login_pw}
     </select>
 
     <delete id="deleteUser" parameterType="com.rest.api.VO.LoginVO">
-        delete from coin_user where user_id='${login_id}' and user_pw='${login_pw}'
+        delete from coin_user where user_id=#{login_id} and user_pw=#{login_pw}
     </delete>
 
     <select id="getUserInfo" parameterType="String" resultType="com.rest.api.VO.UserVO">
-        select user_id, user_name,user_phone, user_address, user_email, user_gender, isAdmin from coin_user where user_id='${login_id}'
+        select user_id, user_name,user_phone, user_address, user_email, user_gender, isAdmin from coin_user where user_id=#{login_id}
     </select>
 
     <update id="updateUser" parameterType="com.rest.api.VO.UserVO">
-        update coin_user set user_pw='${user_pw}', user_phone='${user_phone}', user_address='${user_address}' where user_id='${user_id}'
+        update coin_user set user_pw=#{user_pw}, user_phone=#{user_phone}, user_address=#{user_address} where user_id=#{user_id}
     </update>
 
     <update id="updatePw" parameterType="com.rest.api.VO.FindPw">
-        update coin_user set user_pw='${member_pw}' where user_id='${member_id}'
+        update coin_user set user_pw=#{member_pw} where user_id=#{member_id}
     </update>
 
     <select id="findAddressList" parameterType="String" resultType="com.rest.api.VO.AddressVO">
-        select * from address where dong LIKE '%${user_dong}%'
+        select * from address where dong LIKE '%'||#{user_dong}||'%'
     </select>
 
 </mapper>

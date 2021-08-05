@@ -3,11 +3,11 @@
 
 <mapper namespace="com.rest.api.DAO.SessionDAO">
     <insert id="insertSession">
-        insert into sess(session_id, user_id) values ('${sess_id}', '${user_id}')
+        insert into sess(session_id, user_id) values (#{sess_id}, #{user_id})
     </insert>
 
     <select id="getSession" resultType="com.rest.api.VO.SessionVO">
-        select * from sess where session_id='${sess_id}'
+        select * from sess where session_id=#{sess_id}
     </select>
 
 </mapper>

@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Api(tags={"4. Comment"})
@@ -23,11 +24,12 @@ public class CommentController {
 
     private final CommentService commentService;
     private final ResponseService responseService;
+    private final HttpSession session;
 
     @ApiOperation(value="댓글 입력", notes="DB에 댓글 내용 저장")
     @PostMapping(value="/insert")
     public SingleResult<Integer> insertComment(@ApiParam(value="댓글 입력") @RequestBody CommentVO comment) {
-        System.out.println("comment");
+        if(session.getAttribute("id") == null) throw new RuntimeException();
         int res = commentService.insertComment(comment);
         System.out.println(res);
         if ( res < 1) throw new RuntimeException();
@@ -45,7 +47,7 @@ public class CommentController {
     @ApiOperation(value="댓글 삭제", notes="DB에 저장된 해당 board의 댓글 삭제₩")
     @PostMapping(value="/delete")
     public SingleResult<Integer> deleteComment(@ApiParam(value="댓글 삭제") @RequestBody CommentVO comment) {
-        System.out.println(comment);
+        if(comment.getUser_id().equals(session.getAttribute("id"))) throw new RuntimeException();
         int res = commentService.deleteComment(comment);
         if ( res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);

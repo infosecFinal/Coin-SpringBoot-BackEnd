@@ -5,7 +5,7 @@
     <insert id="insertComment" parameterType="com.rest.api.VO.CommentVO" >
         insert into COMMENT_DB(board_id, comment_id, user_id, content)
         values(
-            ${board_id}, comment_id_seq.nextval, '${user_id}', '${content}'
+            #{board_id}, comment_id_seq.nextval, #{user_id}, #{content}
         )
         <selectKey keyProperty="comment_id" resultType="int" order="AFTER">
             select comment_id_seq.CURRVAL FROM DUAL
@@ -13,11 +13,11 @@
     </insert>
 
     <select id="selectCommentByBoard" resultType="com.rest.api.VO.CommentVO" parameterType="int">
-        select * from COMMENT_DB where available=1 and board_id=${board_id}
+        select * from COMMENT_DB where available=1 and board_id=#{board_id}
     </select>
 
     <update id="deleteComment" parameterType="com.rest.api.VO.CommentVO">
-        update COMMENT_DB set available=0 where comment_id=${comment_id}
+        update COMMENT_DB set available=0 where comment_id=#{comment_id}
     </update>
 
 </mapper>

@@ -9,6 +9,6 @@
         select * from ETH_COIN_ORACLE
     </select>
     <select id="selectBtcDateList" resultType="com.rest.api.VO.ChartVO" parameterType="String">
-        select * from BTC_COIN_ORACLE where datetime like '%${datetime}%'
+        select * from BTC_COIN_ORACLE where datetime like '%'||#{datetime}||'%'
     </select>
 </mapper>

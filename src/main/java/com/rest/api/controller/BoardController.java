@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final ResponseService responseService;
+    private final HttpSession session;
 
     @ApiOperation(value="게시글 전체 조회", notes="모든 게시글을 조회한다")
     @GetMapping(value="/lists")
@@ -33,6 +35,7 @@ public class BoardController {
     @ApiOperation(value="게시글 작성", notes="게시글을 작성한다")
     @PostMapping(value="/insert")
     public SingleResult<Integer> writeBoard(@ApiParam(value = "게시글 작성") @RequestBody BoardVO boardVO) {
+        if(session.getAttribute("id") == null) throw new RuntimeException();
         int res = boardService.writeBoard(boardVO);
         if(res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);
@@ -41,9 +44,13 @@ public class BoardController {
     @ApiOperation(value="게시글 수정", notes="게시글을 수정한다")
     @PostMapping(value="/update")
     public SingleResult<Integer> updateBoard(@ApiParam(value="게시글 수정") @RequestBody BoardVO boardVO) {
-        int res = boardService.updateBoard(boardVO);
-        if(res < 1) throw new RuntimeException();
-        return responseService.getSingleResult(res);
+        String user = boardService.selectBoardListById(boardVO.getId()).getUser_id();
+        if(user.equals(session.getAttribute("id"))) {
+            int res = boardService.updateBoard(boardVO);
+            if(res < 1) throw new RuntimeException();
+            return responseService.getSingleResult(res);
+        }
+        else throw new RuntimeException();
     }
 
     @ApiOperation(value="게시글 삭제", notes="게시글을 비활성화 한다")
@@ -68,9 +75,11 @@ public class BoardController {
         String category = req.getParameter("category");
         String content = req.getParameter("content");
         System.out.println("contents: "+ content);
+        System.out.println("category: " + category);
         List<BoardVO> board = new ArrayList<>();
         if(category.equals("title")) {
             board = boardService.selectListByTitle(content);
+            System.out.println(board.toString());
             if(board == null) throw new RuntimeException();
             return responseService.getListResult(board);
         }

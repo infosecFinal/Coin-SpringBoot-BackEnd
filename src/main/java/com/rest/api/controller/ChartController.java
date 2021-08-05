@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Clob;
 import java.util.List;
 
-@Api(tags = {"4. Chart"})
+@Api(tags = {"5. Chart"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value="/home")

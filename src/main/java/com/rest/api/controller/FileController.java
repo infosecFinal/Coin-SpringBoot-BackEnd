@@ -18,9 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 @Api(tags={"3. File Control"})
 @RequiredArgsConstructor
@@ -31,10 +35,19 @@ public class FileController {
     private final BoardService boardService;
     private final FileService fileService;
     private final ResponseService responseService;
+    private final HttpSession session;
 
     @ApiOperation(value="파일 업로드", notes="파일을 업로드한다")
     @PostMapping(value="/upload")
     public SingleResult<Integer> uploadFile(@ApiParam(value="파일 업로드") @RequestBody MultipartFile[] files, HttpServletRequest req) throws IOException {
+        if(session.getAttribute("id") == null) throw new RuntimeException();
+        ArrayList<String> fnames = new ArrayList<>();
+        for(MultipartFile file : files) {
+            fnames.add(file.getOriginalFilename());
+            System.out.println(file.getOriginalFilename());
+        }
+        if(!checkExtension(fnames)) throw new RuntimeException();
+
         String user_id = req.getParameter("user_id");
         String board_id = req.getParameter("board_id");
         int idx = 0;
@@ -110,4 +123,20 @@ public class FileController {
         }
 
     }
+
+    public boolean checkExtension(ArrayList<String> names) {
+        boolean res = true;
+        ArrayList<String> to_accept = new ArrayList<>(Arrays.asList("png","jpg","jpeg","txt"));
+        for(String name: names) {
+            name = name.toLowerCase();
+            System.out.println("lower fname: "+ name);
+            String ext = name.substring(name.lastIndexOf(".")+1);
+            System.out.println("Ext: "+ext);
+            if(to_accept.contains(ext)) res = res & true;
+            else return false;
+        }
+
+        return res;
+    }
+
 }
