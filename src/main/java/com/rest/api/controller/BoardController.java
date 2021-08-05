@@ -56,6 +56,8 @@ public class BoardController {
     @ApiOperation(value="게시글 삭제", notes="게시글을 비활성화 한다")
     @PostMapping(value="/delete")
     public SingleResult<Integer> deleteBoard(@ApiParam(value="게시글 삭제") @RequestBody BoardVO boardVO) {
+        String user = boardVO.getUser_id();
+        if(!user.equals(session.getAttribute("id"))) throw new RuntimeException();
         int res = boardService.deleteBoard(boardVO);
         if(res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);
