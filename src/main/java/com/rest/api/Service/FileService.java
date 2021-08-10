@@ -8,7 +8,7 @@ import java.util.List;
 public interface FileService {
     List<FileVO> selectFileList(int board_idx);
     FileVO selectFileById(int id);
-    int uploadFile(MultipartFile[] files, int board_id, String user_id) throws IOException;
+    int uploadFile(MultipartFile[] files, int board_id, String user_id, String pageType) throws IOException;
     int deleteFile(int file_id);
     FileVO selectProfile(String user_id);
 }

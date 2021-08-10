@@ -25,14 +25,15 @@ public class BoardController {
 
     @ApiOperation(value="게시글 전체 조회", notes="모든 게시글을 조회한다")
     @GetMapping(value="/lists")
-    public ListResult<BoardVO> selectList() {
-        List<BoardVO> result = boardService.selectBoardList();
+    public ListResult<BoardVO> selectList(@RequestParam("pageType") String pageType) {
+        List<BoardVO> result = boardService.selectBoardList(pageType);
         return responseService.getListResult(result);
     }
 
     @ApiOperation(value="게시글 작성", notes="게시글을 작성한다")
     @PostMapping(value="/insert")
     public SingleResult<Integer> writeBoard(@ApiParam(value = "게시글 작성") @RequestBody BoardVO boardVO) {
+        System.out.println(boardVO.getPageType());
         int res = boardService.writeBoard(boardVO);
         if(res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);
@@ -64,22 +65,22 @@ public class BoardController {
 
     @ApiOperation(value="게시글 검색", notes="게시글을 타입별로 검색한다.")
     @GetMapping(value="/find")
-    public ListResult<BoardVO> findList(HttpServletRequest req) {
+    public ListResult<BoardVO> findList(HttpServletRequest req, @RequestParam("pageType") String pageType) {
         String category = req.getParameter("category");
         String content = req.getParameter("content");
         List<BoardVO> board = new ArrayList<>();
         if(category.equals("title")) {
-            board = boardService.selectListByTitle(content);
+            board = boardService.selectListByTitle(content, pageType);
             if(board == null) throw new RuntimeException();
             return responseService.getListResult(board);
         }
         else if(category.equals("content")){
-            board = boardService.selectListByContent(content);
+            board = boardService.selectListByContent(content, pageType);
             if(board == null) throw new RuntimeException();
             return responseService.getListResult(board);
         }
         else{
-            board = boardService.selectListByUser(content);
+            board = boardService.selectListByUser(content, pageType);
             if(board == null) throw new RuntimeException();
             return responseService.getListResult(board);
         }

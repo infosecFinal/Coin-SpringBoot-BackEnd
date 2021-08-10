@@ -9,10 +9,11 @@ import java.util.List;
 @Mapper
 @Component
 public interface BoardDAO {
-    List<BoardVO> selectList();
-    List<BoardVO> selectListByContent(@Param("content") String content);
-    List<BoardVO> selectListByTitle(@Param("title") String title);
-    List<BoardVO> selectListByUser(@Param("user_id") String user_id);
+    List<BoardVO> selectList(@Param("pageType") String pageType);
+    List<BoardVO> selectListByContent(@Param("content") String content, @Param("pageType") String pageType);
+    List<BoardVO> selectListByTitle(@Param("title") String title, @Param("pageType") String pageType);
+    List<BoardVO> selectListByUser(@Param("user_id") String user_id, @Param("pageType") String pageType);
+    int getNewestId();
     int writeBoard(BoardVO boardVO);
     int updateBoard(BoardVO boardVO);
     int deleteBoard(BoardVO boardVO);

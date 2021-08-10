@@ -16,4 +16,5 @@ public class BoardVO {
     private String content;
     private String user_id;
     private Date created_at;
+    private String pageType;
 }

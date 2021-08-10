@@ -2,8 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.rest.api.DAO.BoardDAO">
+    <select id="getNewestId" resultType="int">
+        select id from board where boardAvailable='T' order by id desc
+    </select>
     <select id="selectList" resultType="com.rest.api.VO.BoardVO">
-        select * from board where boardAvailable='T' order by id desc
+        select * from board where boardAvailable='T' and pageType=#{pageType} order by id desc
     </select>
 
     <select id="selectListById" resultType="com.rest.api.VO.BoardVO" parameterType="int">
@@ -11,7 +14,7 @@
     </select>
 
     <insert id="writeBoard" parameterType="com.rest.api.VO.BoardVO">
-        insert into board (id,title,content,user_id,created_at) values (board_id_seq.NEXTVAL,'${title}','${content}','${user_id}',sysdate)
+        insert into board (id,title,content,user_id,created_at, pagetype) values (board_id_seq.NEXTVAL,'${title}','${content}','${user_id}',sysdate, #{pageType})
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             select board_id_seq.CURRVAL FROM DUAL
         </selectKey>
@@ -26,14 +29,14 @@
     </update>
 
     <select id="selectListByContent" resultType="com.rest.api.VO.BoardVO" parameterType="String">
-        select * from board where content like '%${content}%' and boardAvailable='T' order by id desc
+        select * from board where content like '%${content}%' and boardAvailable='T' and pageType=#{pageType} order by id desc
     </select>
 
     <select id="selectListByTitle" resultType="com.rest.api.VO.BoardVO" parameterType="String">
-        select * from board where title like '%${title}%' and boardAvailable='T' order by id desc
+        select * from board where title like '%${title}%' and boardAvailable='T' and pageType=#{pageType} order by id desc
     </select>
 
     <select id="selectListByUser" resultType="com.rest.api.VO.BoardVO" parameterType="String">
-        select * from board where user_id='${user_id}' and boardAvailable='T' order by id desc
+        select * from board where user_id='${user_id}' and boardAvailable='T' and pageType=#{pageType} order by id desc
     </select>
 </mapper>

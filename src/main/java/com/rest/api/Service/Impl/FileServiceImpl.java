@@ -31,10 +31,10 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public int uploadFile(MultipartFile[] files, int board_id, String user_id) throws IOException {
+    public int uploadFile(MultipartFile[] files, int board_id, String user_id, String pageType) throws IOException {
         int queryResult = 1;
 
-        List<FileVO> fileList = fileUtil.uploadFiles(files, board_id, user_id);
+        List<FileVO> fileList = fileUtil.uploadFiles(files, board_id, user_id, pageType);
         System.out.println("After File Upload...");
         System.out.println(CollectionUtils.isEmpty(fileList));
         if (!CollectionUtils.isEmpty(fileList)) {

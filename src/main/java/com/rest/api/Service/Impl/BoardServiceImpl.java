@@ -18,23 +18,23 @@ public class BoardServiceImpl implements BoardService {
     private final FileUtil fileUtil;
 
     @Override
-    public List<BoardVO> selectBoardList() {
-        return boardDAO.selectList();
+    public List<BoardVO> selectBoardList(String pageType) {
+        return boardDAO.selectList(pageType);
     }
 
     @Override
-    public List<BoardVO> selectListByContent(String content) {
-        return boardDAO.selectListByContent(content);
+    public List<BoardVO> selectListByContent(String content, String pageType) {
+        return boardDAO.selectListByContent(content, pageType);
     }
 
     @Override
-    public List<BoardVO> selectListByTitle(String title) {
-        return boardDAO.selectListByTitle(title);
+    public List<BoardVO> selectListByTitle(String title, String pageType) {
+        return boardDAO.selectListByTitle(title, pageType);
     }
 
     @Override
-    public List<BoardVO> selectListByUser(String user_id) {
-        return boardDAO.selectListByUser(user_id);
+    public List<BoardVO> selectListByUser(String user_id, String pageType) {
+        return boardDAO.selectListByUser(user_id, pageType);
     }
 
     @Override
@@ -47,6 +47,8 @@ public class BoardServiceImpl implements BoardService {
     }
     @Override
     public int deleteBoard(BoardVO boardVO) { return boardDAO.deleteBoard(boardVO); }
+    @Override
+    public int getNewestId() {return boardDAO.getNewestId(); };
     @Override
     public BoardVO selectBoardListById(int id) { return boardDAO.selectListById(id); }
 

@@ -37,11 +37,13 @@ public class FileController {
     public SingleResult<Integer> uploadFile(@ApiParam(value="파일 업로드") @RequestBody MultipartFile[] files, HttpServletRequest req) throws IOException {
         String user_id = req.getParameter("user_id");
         String board_id = req.getParameter("board_id");
+        String pageType = req.getParameter("pageType");
+        System.out.println("ptype: "+pageType);
         int idx = 0;
-        if(board_id.equals("new")) idx = boardService.selectBoardList().get(0).getId();
+        if(board_id.equals("new")) idx = boardService.getNewestId();
         else idx = Integer.parseInt(board_id);
 
-        int res = fileService.uploadFile(files, idx, user_id);
+        int res = fileService.uploadFile(files, idx, user_id, pageType);
 
         if (res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);
@@ -94,6 +96,30 @@ public class FileController {
         String fileName = req.getParameter("fileName");
         System.out.println(uploadPath+" "+fileName);
         File file = new File(uploadPath, fileName);
+
+        try {
+            byte[] data = FileUtils.readFileToByteArray(file);
+            resp.setContentType("application/octet-stream");
+            resp.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
+            resp.getOutputStream().write(data);
+            resp.getOutputStream().flush();
+            resp.getOutputStream().close();
+        } catch (IOException e) {
+            throw new RuntimeException("파일 다운로드 실패");
+        } catch (Exception e) {
+            throw new RuntimeException("시스템 에러");
+        }
+
+    }
+    @ApiOperation(value="파일 다운로드", notes="파일 번호로 다운로드")
+    @GetMapping(value="/download/safe/{id}")
+    @CrossOrigin(value={"*"}, exposedHeaders = {"Content-Disposition"})
+    public void download(HttpServletResponse resp, @ApiParam("파일 id")@PathVariable int id) {
+        FileVO fileVO = fileService.selectFileById(id);
+
+        String uploadPath = fileVO.getFile_Path();
+        String fileName = fileVO.getOrigin_file_Name();
+        File file = new File(uploadPath, fileVO.getFile_Name());
 
         try {
             byte[] data = FileUtils.readFileToByteArray(file);
