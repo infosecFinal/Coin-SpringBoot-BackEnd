@@ -14,14 +14,14 @@
     </select>
 
     <insert id="writeBoard" parameterType="com.rest.api.VO.BoardVO">
-        insert into board (id,title,content,user_id,created_at, pagetype) values (board_id_seq.NEXTVAL,'${title}','${content}','${user_id}',sysdate, #{pageType})
+        insert into board (id,title,content,user_id,created_at, pagetype) values (board_id_seq.NEXTVAL,#{title},#{content},#{user_id},sysdate, #{pageType})
         <selectKey keyProperty="id" resultType="int" order="AFTER">
             select board_id_seq.CURRVAL FROM DUAL
         </selectKey>
     </insert>
 
     <update id="updateBoard" parameterType="com.rest.api.VO.BoardVO">
-        update board set content='${content}', title='${title}' where id=${id}
+        update board set content=#{content}, title=#{title} where id=${id}
     </update>
 
     <update id="deleteBoard" parameterType="com.rest.api.VO.BoardVO">

@@ -33,6 +33,7 @@ public class BoardController {
     @ApiOperation(value="게시글 작성", notes="게시글을 작성한다")
     @PostMapping(value="/insert")
     public SingleResult<Integer> writeBoard(@ApiParam(value = "게시글 작성") @RequestBody BoardVO boardVO) {
+        System.out.println(boardVO.toString());
         System.out.println(boardVO.getPageType());
         int res = boardService.writeBoard(boardVO);
         if(res < 1) throw new RuntimeException();
@@ -42,6 +43,7 @@ public class BoardController {
     @ApiOperation(value="게시글 수정", notes="게시글을 수정한다")
     @PostMapping(value="/update")
     public SingleResult<Integer> updateBoard(@ApiParam(value="게시글 수정") @RequestBody BoardVO boardVO) {
+        System.out.println(boardVO.toString());
         int res = boardService.updateBoard(boardVO);
         if(res < 1) throw new RuntimeException();
         return responseService.getSingleResult(res);

@@ -22,7 +22,7 @@ repositories {
 
 bootWar {
     archiveBaseName = '-'
-    archiveFileName = 'Coin-Weak.war'
+    archiveFileName = 'weak.war'
 }
 
 dependencies {

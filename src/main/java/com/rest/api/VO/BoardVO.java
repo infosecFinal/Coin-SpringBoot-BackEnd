@@ -12,6 +12,19 @@ import java.sql.Date;
 @AllArgsConstructor
 public class BoardVO {
     private int id;
+
+    @Override
+    public String toString() {
+        return "BoardVO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", created_at=" + created_at +
+                ", pageType='" + pageType + '\'' +
+                '}';
+    }
+
     private String title;
     private String content;
     private String user_id;

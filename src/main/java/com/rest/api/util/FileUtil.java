@@ -32,7 +32,7 @@ public class FileUtil {
         List<FileVO> file_lst = new ArrayList<>();
 
         if(pageType.equals("notice")) {
-            String uploadPath = Paths.get("C:", "Temp","Weak").toString();
+            String uploadPath = Paths.get("/usr", "local", "tomcat", "weak",  "upload").toString();
             for (MultipartFile file : files) {
                 try {
                     String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
@@ -69,7 +69,7 @@ public class FileUtil {
                 }
             }
         } else {
-            String uploadPath = Paths.get("C:", "Temp","Upload").toString();
+            String uploadPath = Paths.get("/var","tmp","upload").toString();
             for (MultipartFile file : files) {
                 try {
                     String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
